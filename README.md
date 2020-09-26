@@ -12,6 +12,8 @@ This is a python module aimed at optimizing state aggregation based on the maxim
 
 ## Install
 
+`python setup.py install [--user]`
+
 ## License
 
 Copyright: Mauro Faccin (2020)
