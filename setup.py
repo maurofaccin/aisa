@@ -13,17 +13,17 @@ try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-import entropart
+import aisa
 
 setup(
         name='aisa',
-        version=entropart.__version__,
-        description=entropart.__description__,
-        long_description=entropart.__long_description__,
-        author=entropart.__author__,
-        author_email=entropart.__author_email__,
-        url=entropart.__url__,
-        license=entropart.__copyright__,
+        version=aisa.__version__,
+        description=aisa.__description__,
+        long_description=aisa.__long_description__,
+        author=aisa.__author__,
+        author_email=aisa.__author_email__,
+        url=aisa.__url__,
+        license=aisa.__copyright__,
         packages=['aisa'],
         requires=[
             'numpy',
