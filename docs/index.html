@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.1" />
+<title>aisa API documentation</title>
+<meta name="description" content="AISA …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>aisa</code></h1>
+</header>
+<section id="section-intro">
+<h1 id="aisa">AISA</h1>
+<p>Auto-Information State Aggregation</p>
+<p>This is a python module aimed at optimizing state aggregation based on the maximization of Auto-Information on dynamical processes evolving on networks.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li><code>numpy</code> and <code>scipy</code></li>
+<li><code>networkx</code></li>
+<li><code>tqdm</code> (optional)</li>
+</ul>
+<h2 id="install">Install</h2>
+<p><code>python setup.py install [--user]</code></p>
+<h2 id="license">License</h2>
+<p>Copyright: Mauro Faccin (2020)</p>
+<p>AISA is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.</p>
+<p>AISA is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the
+GNU General Public License for more details.</p>
+<p>Check LICENSE.txt for details.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+
+.. include:: ../README.md
+&#34;&#34;&#34;
+
+# Author: Mauro Faccin 2020
+# -------------------------
+# |   This is AISA        |
+# -------------------------
+# |    License: GPL3      |
+# |   see LICENSE.txt     |
+# -------------------------
+
+
+from .base import *
+
+__all__ = [&#34;PGraph&#34;, &#34;best_partition&#34;, &#34;merge_pgraph&#34;, &#34;entrogram&#34;, &#34;optimize&#34;]
+
+__productname__ = &#39;AISA&#39;
+__version__ = &#39;0.1&#39;
+__copyright__ = &#34;Copyright (C) 2020 Mauro Faccin&#34;
+__author__ = &#34;Mauro Faccin&#34;
+__author_email__ = &#34;mauro.fccn@gmail.com&#34;
+__description__ = &#34;AISA: Auto-Information State Aggregation&#34;
+__long_description__ = &#34;State aggregation through maximization of the auto-information of the dynamics&#34;
+__url__ = &#34;https://maurofaccin.github.io&#34;
+__license__ = &#34;Licensed under the GNU GPL v3+.&#34;</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="aisa.base" href="base.html">aisa.base</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="aisa.utils" href="utils.html">aisa.utils</a></code></dt>
+<dd>
+<div class="desc"><p>Utility functions and classes</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="aisa.best_partition"><code class="name flex">
+<span>def <span class="ident">best_partition</span></span>(<span>graph, T=None, beta=0.0, init_part=None, kmin=None, kmax=None, invtemp=1000000.0, compute_steady=True, tsteps=10000)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Find the best partition for <code>graph</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>graph</code></strong> :&ensp;<code>nx.Graph</code> or <code>nx.DiGraph</code></dt>
+<dd>The graph to be aggregated (a random walk is considered as dynamical system)</dd>
+<dt><strong><code>init_part</code></strong> :&ensp;<code>dict</code></dt>
+<dd>initial partition to start the optimization. (Default: N singletons)</dd>
+<dt><strong><code>T</code></strong> :&ensp;<code>int</code></dt>
+<dd>time scale parameter value. (Default: 1)</dd>
+<dt><strong><code>beta</code></strong> :&ensp;<code>float</code></dt>
+<dd>model selection parameter. (Default: 0)</dd>
+<dt><strong><code>kmin</code></strong> :&ensp;<code>int</code></dt>
+<dd>minimum number of partition to be accepted</dd>
+<dt><strong><code>kmax</code></strong> :&ensp;<code>int</code></dt>
+<dd>maximum number of partition to be accepted</dd>
+<dt><strong><code>invtemp</code></strong> :&ensp;<code>float</code></dt>
+<dd>the inverse of the pseudo-temperature for the simulated annealing process</dd>
+<dt><strong><code>compute_steady</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If steady state need to be computed. (Default: True)
+If False, the steady state will be the marginal.</dd>
+<dt><strong><code>tsteps</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum number of steps in the optimization process. (Default: 10k)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>partition</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary with nodes as keys and partitions as values.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def best_partition(
+            graph,
+            T=None,
+            beta=0.0,
+            init_part=None,
+            kmin=None,
+            kmax=None,
+            invtemp=1e6,
+            compute_steady=True,
+            tsteps=10000,
+            ):
+    &#34;&#34;&#34;Find the best partition for `graph`.
+
+    Parameters
+    ----------
+
+    graph: nx.Graph or nx.DiGraph
+        The graph to be aggregated (a random walk is considered as dynamical system)
+
+    init_part: dict
+        initial partition to start the optimization. (Default: N singletons)
+
+    T: int
+        time scale parameter value. (Default: 1)
+
+    beta: float
+        model selection parameter. (Default: 0)
+
+    kmin: int
+        minimum number of partition to be accepted
+
+    kmax: int
+        maximum number of partition to be accepted
+
+    invtemp: float
+        the inverse of the pseudo-temperature for the simulated annealing process
+
+    compute_steady: bool
+        If steady state need to be computed. (Default: True)
+        If False, the steady state will be the marginal.
+
+    tsteps: int
+        Maximum number of steps in the optimization process. (Default: 10k)
+
+
+    Returns
+    ------
+
+    partition: dict
+        Dictionary with nodes as keys and partitions as values.
+
+    &#34;&#34;&#34;
+
+    if kmax is None:
+        kmax = graph.number_of_nodes()
+
+    if kmin is None:
+        kmin = 1
+
+    if init_part is None:
+        # start from N partitions
+        initp = {n: i for i, n in enumerate(graph.nodes())}
+    elif isinstance(init_part, dict):
+        initp = init_part
+    else:
+        raise ValueError(
+            &#34;init_part should be a dict not {}&#34;.format(type(init_part))
+        )
+
+    pgraph = PGraph(graph, compute_steady=compute_steady, init_part=initp, T=T)
+
+    log.info(
+        &#34;Optimization with {} parts, beta {}, 1/T {}&#34;.format(
+            pgraph._np, beta, invtemp
+        )
+    )
+
+    # start with hierarchical merging
+    merge_pgraph(pgraph, kmin=kmin, kmax=kmax, beta=beta)
+    # optimize
+    best = optimize(pgraph, invtemp, tsteps, kmin, kmax, beta=beta)
+
+    results = dict(best)
+    pgraph.set_partition(results)
+    autoinformation = pgraph.autoinformation(beta)
+
+    log.info(&#34;final: num part {}&#34;.format(pgraph.np))
+    log.info(&#34;{} -- {} &#34;.format(pgraph._np, pgraph.print_partition()))
+    log.info(&#34;   -- {}&#34;.format(autoinformation))
+
+    return results</code></pre>
+</details>
+</dd>
+<dt id="aisa.entrogram"><code class="name flex">
+<span>def <span class="ident">entrogram</span></span>(<span>graph, partition, depth=3)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the entrogram for the graph and the given partition.
+A random walk is assumed as Markovian process on the original network.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>graph</code></strong> :&ensp;<code>nx.Graph</code> or <code>nx.DiGraph</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>partition</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary with nodes as keys and values as classes.</dd>
+<dt><strong><code>depth</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of bars the final entrogram should have. (Default: 3)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>entrogram</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>
+<ul>
+<li><span><span class="MathJax_Preview"> H_{KS} </span><script type="math/tex"> H_{KS} </script></span></li>
+<li>list of entrogram entries</li>
+</ul>
+</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def entrogram(graph, partition, depth=3):
+    &#34;&#34;&#34;Compute the entrogram for the graph and the given partition.
+    A random walk is assumed as Markovian process on the original network.
+
+    Parameters
+    ---
+
+    graph: nx.Graph or nx.DiGraph
+
+    partition: dict
+        A dictionary with nodes as keys and values as classes.
+
+    depth: int
+        The number of bars the final entrogram should have. (Default: 3)
+
+    Returns
+    ---
+
+    entrogram: tuple
+        - \( H_{KS} \)
+        - list of entrogram entries
+
+    &#34;&#34;&#34;
+    # node to index map
+    part = utils.Partition(partition)
+    n_n = len(part)
+    n_p = part.np
+
+    symmetric = True if isinstance(graph, nx.Graph) else False
+    edges = [
+        (part.n2i[nodei], part.n2i[nodej], weight)
+        for nodei, nodej, weight in graph.edges.data(&#34;weight&#34;, default=1.0)
+    ]
+    if symmetric:
+        edges += [(j, i, w) for i, j, w in edges]
+
+    transition, diag, pi = utils.get_probabilities(
+        edges, n_n, symmetric=symmetric, return_transition=True
+    )
+
+    pij = transition @ diag
+    pij = utils.SparseMat(pij, normalize=True)
+    # transition[i, j] = p(j| i)
+    transition = utils.SparseMat(transition)
+
+    p_pij = pij.project(part)
+    p_pi = np.zeros(n_p)
+    for (i, j), w in p_pij:
+        p_pi[i] += w
+    Hs = [utils.entropy(p_pi), utils.entropy(p_pij)]
+
+    for step in range(1, depth + 1):
+        # pij = utils.kron(pij, transition)
+        pij = pij.kron(transition)
+        p_pij = pij.project(part)
+        Hs.append(utils.entropy(p_pij))
+
+    entrogram = np.array(Hs)
+    entrogram = entrogram[1:] - entrogram[:-1]
+    Hks = Hs[-1] - Hs[-2]
+    return Hks, entrogram[:-1] - Hks</code></pre>
+</details>
+</dd>
+<dt id="aisa.merge_pgraph"><code class="name flex">
+<span>def <span class="ident">merge_pgraph</span></span>(<span>pgraph, beta=0.0, kmin=1, kmax=inf)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Hierarchical merging of classes.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pgraph</code></strong> :&ensp;<code><a title="aisa.PGraph" href="#aisa.PGraph">PGraph</a></code></dt>
+<dd>A graph plus partition.</dd>
+<dt><strong><code>beta</code></strong> :&ensp;<code>float</code></dt>
+<dd>Model selection parameter (Default: 0.0)</dd>
+<dt><strong><code>kmin</code></strong> :&ensp;<code>int</code></dt>
+<dd>minimum number of partition to be accepted</dd>
+<dt><strong><code>kmax</code></strong> :&ensp;<code>int</code></dt>
+<dd>maximum number of partition to be accepted</dd>
+</dl>
+<p><code>pgraph</code> will be updated to the best encounteded partition.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge_pgraph(pgraph, beta=0.0, kmin=1, kmax=np.inf):
+    &#34;&#34;&#34;Hierarchical merging of classes.
+
+    Parameters
+    ---
+
+    pgraph: PGraph
+        A graph plus partition.
+
+    beta: float
+        Model selection parameter (Default: 0.0)
+
+    kmin: int
+        minimum number of partition to be accepted
+
+    kmax: int
+        maximum number of partition to be accepted
+
+
+    `pgraph` will be updated to the best encounteded partition.
+    &#34;&#34;&#34;
+
+    if kmin &gt; pgraph.np:
+        return None
+
+    elif pgraph.np &lt;= kmax:
+        best_part = (pgraph.autoinformation(beta), pgraph.partition())
+
+    else:
+        best_part = (-np.inf, None)
+
+    while pgraph.np &gt; kmin:
+        print(pgraph.np, &#39; &#39;, end=&#39;\r&#39;)
+        best = pgraph._get_best_merge(beta=beta)
+        if best is None:
+            break
+        pgraph.merge_partitions(*best)
+        val = pgraph.autoinformation(beta)
+        if val &gt; best_part[0] and pgraph.np &lt;= kmax:
+            best_part = (val, pgraph.partition())
+
+    pgraph.set_partition(best_part[1])</code></pre>
+</details>
+</dd>
+<dt id="aisa.optimize"><code class="name flex">
+<span>def <span class="ident">optimize</span></span>(<span>pgraph, kmin, kmax, invtemp, tsteps, beta=0.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Optimize the partition enbedded into <code>pgraph</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pgraph</code></strong> :&ensp;<code><a title="aisa.PGraph" href="#aisa.PGraph">PGraph</a></code></dt>
+<dd>A graph plus partition.</dd>
+<dt><strong><code>kmin</code></strong> :&ensp;<code>int</code></dt>
+<dd>minimum number of partition to be accepted</dd>
+<dt><strong><code>kmax</code></strong> :&ensp;<code>int</code></dt>
+<dd>maximum number of partition to be accepted</dd>
+<dt><strong><code>invtemp</code></strong> :&ensp;<code>float</code></dt>
+<dd>the inverse of the pseudo-temperature for the simulated annealing process</dd>
+<dt><strong><code>tsteps</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum number of steps in the optimization process. (Default: 10k)</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
+    &#34;&#34;&#34;
+    Optimize the partition enbedded into `pgraph`.
+
+    Parameters
+    ---
+
+    pgraph: PGraph
+        A graph plus partition.
+
+    kmin: int
+        minimum number of partition to be accepted
+
+    kmax: int
+        maximum number of partition to be accepted
+
+    invtemp: float
+        the inverse of the pseudo-temperature for the simulated annealing process
+
+    tsteps: int
+        Maximum number of steps in the optimization process. (Default: 10k)
+    &#34;&#34;&#34;
+    bestp = pgraph.partition()
+    cumul = 0.0
+    moves = [
+        0,  # delta &gt; 0
+        0,  # delta &lt; 0 accepted
+        0,  # best
+        0,  # changes since last move
+    ]
+
+    if &#34;tqdm&#34; in sys.modules and log.level &gt;= 20:
+        tsrange = tqdm.trange(tsteps)
+    else:
+        tsrange = range(tsteps)
+
+    for tstep in tsrange:
+        r_node, r_part, p, delta = pgraph._get_random_move(kmin=kmin, kmax=kmax, beta=beta)
+
+        if r_part is None:
+            continue
+
+        log.debug(
+            &#34;proposed move: n {:5}, p {:5}, p() {:5.3f}, d {}&#34;.format(
+                r_node, r_part, p, delta
+            )
+        )
+
+        log.debug(&#34;CUMUL {}&#34;.format(cumul))
+        if delta is None:
+            continue
+
+        if delta &gt;= 0.0:
+            if r_part == pgraph.np:
+                pgraph._split(r_node)
+            else:
+                # move or merge
+                pgraph._move_node(r_node, r_part)
+            cumul += delta
+            moves[0] += 1
+            moves[3] = 0
+            log.debug(&#34;accepted move&#34;)
+            if &#34;tqdm&#34; in sys.modules and log.level &gt;= 20:
+                tsrange.set_description(&#34;{} [{}]&#34;.format(moves[2], pgraph.np))
+        else:
+            rand = np.random.rand()
+            if rand == 0.0:
+                continue
+
+            sim_ann = 1.0 - tstep / tsteps
+            if sim_ann == 0.0:
+                continue
+            threshold = invtemp * delta / sim_ann + np.log(p)
+            if np.log(rand) &lt; threshold:
+                if r_part == pgraph.np:
+                    pgraph._split(r_node)
+                else:
+                    pgraph._move_node(r_node, r_part)
+                cumul += delta
+                moves[1] += 1
+                moves[3] = 0
+                log.debug(&#34;accepted move {} &lt; {}&#34;.format(rand, threshold))
+                if &#34;tqdm&#34; in sys.modules and log.level &gt;= 20:
+                    tsrange.set_description(
+                        &#34;{} [{}]&#34;.format(moves[2], pgraph.np)
+                    )
+            else:
+                log.debug(&#34;rejected move&#34;)
+                moves[3] += 1
+
+        if cumul &gt; 0:
+            log.debug(&#34;BEST move +++ {} +++&#34;.format(cumul))
+            bestp = pgraph.partition()
+            cumul = 0.0
+            moves[2] += 1
+
+        if moves[3] &gt; 500:
+            break
+
+    log.info(&#34;good {}, not so good {}, best {}&#34;.format(*moves))
+    return bestp</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="aisa.PGraph"><code class="flex name class">
+<span>class <span class="ident">PGraph</span></span>
+<span>(</span><span>graph, init_part=None, compute_steady=True, T=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A graph with a partition.</p>
+<p>Initialize from <code>networkx</code> graphs.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>graph</code></strong> :&ensp;<code>nx.[Di]Graph()</code></dt>
+<dd>The graph</dd>
+<dt><strong><code>init_part</code></strong> :&ensp;<code>dict</code></dt>
+<dd>initial partition to start the optimization. (Default: N singletons)</dd>
+<dt><strong><code>compute_steady</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If steady state need to be computed. (Default: True)
+If False, the steady state will be the marginal.</dd>
+<dt><strong><code>T</code></strong> :&ensp;<code>int</code></dt>
+<dd>time scale parameter value. (Default: 1)</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PGraph():
+    &#34;&#34;&#34;A graph with a partition.
+    &#34;&#34;&#34;
+
+    def __init__(self, graph, init_part=None, compute_steady=True, T=None):
+        &#34;&#34;&#34;Initialize from `networkx` graphs.
+
+        Parameters
+        ---
+
+        graph: nx.[Di]Graph()
+            The graph
+
+        init_part: dict
+            initial partition to start the optimization. (Default: N singletons)
+
+        compute_steady: bool
+            If steady state need to be computed. (Default: True)
+            If False, the steady state will be the marginal.
+
+        T: int
+            time scale parameter value. (Default: 1)
+        &#34;&#34;&#34;
+
+        if isinstance(graph, nx.DiGraph):
+            self._isdirected = True
+        elif isinstance(graph, nx.Graph):
+            self._isdirected = False
+        else:
+            raise ValueError(&#34;Need nx.[Di]Graph, not &#34; + str(type(graph)))
+
+        _graph = nx.DiGraph(graph)
+        nnodes = _graph.number_of_nodes()
+
+        if init_part is None:
+            init_part = {node: node for node in _graph.number_of_nodes()}
+        self._part = utils.Partition(init_part)
+
+        # compute the probabilities p(i, j) and p(i)
+        edges = [
+            (self._part.n2i[i], self._part.n2i[j], w)
+            for i, j, w in _graph.edges.data(&#34;weight&#34;, default=1.0)
+        ]
+        p_ij, p_i = utils.get_probabilities(
+            edges,
+            nnodes,
+            symmetric=not self._isdirected,
+            return_transition=False,
+            compute_steady=compute_steady,
+            T=T
+        )
+        self._pij = utils.SparseMat(p_ij, normalize=True)
+        self._pi = p_i / p_i.sum()
+
+        # save partition and projected p(i,j) and p(i)
+        self.set_partition()
+
+        assert np.isclose(self._pij.sum(), 1.0)
+        assert np.isclose(self._ppij.sum(), 1.0)
+
+        self._reset()
+
+    def set_partition(self, partition=None):
+        &#34;&#34;&#34;Set/Change the graph partition.
+
+        Parameters
+        ---
+
+        partition: dict
+            The partition to be set. A dict with nodes as keys and classes as values
+
+        &#34;&#34;&#34;
+        # set up partition
+        if partition is not None:
+            self._part = utils.Partition(partition)
+        _part = sparse.csr_matrix(self._part.to_coo())
+        self._nn, self._np = _part.shape
+
+        self._ppij = self._pij.project(self._part)
+        p_pi = _part.transpose() @ self._pi
+        self._ppi = p_pi / p_pi.sum()
+
+    @property
+    def np(self):
+        &#34;&#34;&#34;Number of partitions&#34;&#34;&#34;
+        return self._np
+
+    @property
+    def nn(self):
+        &#34;&#34;&#34;Number of nodes&#34;&#34;&#34;
+        return self._nn
+
+    def _move_probability(self, inode, part_probs=None, part=None):
+        &#34;&#34;&#34;Compute the probability to move to a partition.
+
+        :inode: node index to move
+        :part_probs: optional prob distribution to compute from
+        :part: optional partition to move the node to
+        &#34;&#34;&#34;
+
+        if part_probs is None:
+            part_probs = self._ppij
+        n_ego_out = self._pij.get_egonet(inode, axis=0).project(self._part)
+        n_ego_in = self._pij.get_egonet(inode, axis=1).project(self._part)
+
+        # compute probability to choose a partition to mode to
+        if part is None:
+            probs = np.zeros(part_probs.nn)
+            rng = range(part_probs.nn)
+        else:
+            probs = np.array([0.0])
+            rng = [part]
+
+        for prt in rng:
+
+            probs[prt] += np.sum(
+                [
+                    float(v) * float(part_probs[(prt, p[1])])
+                    for p, v in n_ego_out
+                ]
+            )
+
+            probs[prt] += np.sum(
+                [
+                    float(v) * float(part_probs[(p[0], prt)])
+                    for p, v in n_ego_in
+                ]
+            )
+
+        probs += 1.0 / (part_probs.nn + 1)
+        return probs / probs.sum()
+
+    def _get_random_move(self, inode=None, kmax=None, kmin=None, **kwargs):
+        &#34;&#34;&#34;Select one node and a partition to move to.
+        Returns the probability of the move and the delta energy.
+        &#34;&#34;&#34;
+
+        # get a random node
+        if inode is None:
+            inode = np.random.randint(self._nn)
+        # save its starting partition
+        old_part = self._part[inode]
+
+        if kmax is not None and self._np == kmax:
+            # do not go for a new partition
+            delta = 0.0
+        else:
+            delta = 1.0 / (self._nn + 1)
+
+        if kmin is not None:
+            if len(self._part.parts[old_part]) == 1 and self._np == kmin:
+                # do not move this node, it&#39;s the last one
+                return inode, None, None, None
+
+        n_ego_full = self._pij.get_egonet(inode)
+        if n_ego_full is None:
+            return None, None, None, None
+        n_ego = n_ego_full.project(self._part)
+
+        if np.random.random() &lt; delta:
+            # inode is going to start a new partition
+            n_ego.add_colrow()
+            p_sub = self._ppij.get_egonet(old_part)
+            p_sub.add_colrow()
+            new_part = self._np
+
+            prob_move = delta
+            act = &#34;split&#34;
+        else:
+            # move inode to anothere partition
+            probs_go = self._move_probability(inode)
+            new_part = np.random.choice(np.arange(self._np), p=probs_go)
+            p_sub = self._ppij.get_submat([old_part, new_part])
+
+            prob_move = probs_go[new_part]
+            if len(self._part.parts[old_part]) == 1:
+                act = &#34;merge&#34;
+            else:
+                act = &#34;move&#34;
+
+        if (inode, new_part) in self._tryed_moves:
+            return (
+                inode,
+                new_part,
+                self._tryed_moves[(inode, new_part)][0],
+                self._tryed_moves[(inode, new_part)][1],
+            )
+
+        n_ego_post = n_ego_full.project(
+            self._part,
+            move_node=(inode, new_part)
+        )
+
+        H2_pre = utils.entropy(p_sub)
+        # I make this in two steps in order to get alway positive values
+        p_sub += n_ego_post
+        p_sub -= n_ego
+        H2_post = utils.entropy(p_sub)
+
+        probs_back = self._move_probability(inode, part_probs=p_sub)
+        prob_ratio = probs_back[old_part] / prob_move
+
+        if new_part == self._np:
+            h1_pre = utils.entropy(self._ppi[old_part])
+            h1_post = utils.entropy(
+                [self._ppi[old_part] - self._pi[inode], self._pi[inode]]
+            )
+        else:
+            h1_pre = utils.entropy([self._ppi[old_part], self._ppi[new_part]])
+            h1_post = utils.entropy(
+                [
+                    self._ppi[old_part] - self._pi[inode],
+                    self._ppi[new_part] + self._pi[inode],
+                ]
+            )
+
+        delta_obj = self.__delta__(
+            h1_pre, H2_pre, h1_post, H2_post, action=act, **kwargs
+        )
+
+        self._tryed_moves[(inode, new_part)] = (prob_ratio, delta_obj)
+        return inode, new_part, prob_ratio, delta_obj
+
+    def _move_node(self, inode, partition):
+        if self._part[inode] == partition:
+            return None
+
+        old_part = self._part[inode]
+        if len(self._part.parts[old_part]) == 1:
+            self.merge_partitions(partition, old_part)
+            return
+
+        pnode = self._pi[inode]
+        self._ppi[old_part] -= pnode
+        self._ppi[partition] += pnode
+
+        ego_node = self._pij.get_egonet(inode)
+        proj_ego_org = ego_node.project(self._part)
+        proj_ego_dst = ego_node.project(
+            self._part, move_node=(inode, partition)
+        )
+        self._ppij += proj_ego_dst
+        self._ppij -= proj_ego_org
+
+        self._part[inode] = partition
+        self._reset()
+
+    def _get_best_merge(self, checks=200, **kwargs):
+        best = {&#34;parts&#34;: (None, None), &#34;delta&#34;: -np.inf}
+        if self._np &lt;= 1:
+            return None
+
+        for p1, p2 in neigneig_full(self):
+            d = self.__try_merge__(p1, p2, **kwargs)
+            if d &gt; best[&#34;delta&#34;]:
+                best = {&#34;parts&#34;: (p1, p2), &#34;delta&#34;: d}
+            if d &gt; 0:
+                break
+            checks -= 1
+            if checks &lt; 1:
+                break
+
+        return best[&#34;parts&#34;]
+
+    def __try_merge__(self, p1, p2, **kwargs):
+        p12 = self._ppij.get_submat([p1, p2])
+        H2pre = utils.entropy(p12)
+
+        p12 = p12.merge_colrow(p1, p2)
+        H2post = utils.entropy(p12)
+
+        h1pre = utils.entropy(self._ppi[p1]) + utils.entropy(self._ppi[p2])
+        h1post = utils.entropy(self._ppi[p1] + self._ppi[p2])
+        return self.__delta__(
+            h1pre, H2pre, h1post, H2post, action=&#34;merge&#34;, **kwargs
+        )
+
+    def _split(self, inode):
+        old_part = self._part[inode]
+        log.debug(&#34;Splitting node {}&#34;.format(inode))
+        if len(self._part.parts[old_part]) == 1:
+            return
+
+        # self._ppi
+        self._ppi = np.append(self._ppi, [0])
+        self._ppi[old_part] -= self._pi[inode]
+        self._ppi[-1] = self._pi[inode]
+
+        # self.__ppij
+        new_part = self._ppij.add_colrow()
+
+        ego_node = self._pij.get_egonet(inode)
+        en_pre = ego_node.project(self._part)
+        # self._part
+        self._part[inode] = new_part
+        en_post = ego_node.project(self._part)
+        # make this in two steps in order to have always non negative values
+        self._ppij += en_post
+        self._ppij -= en_pre
+
+        # final updates
+        self._np += 1
+        self._reset()
+
+    def merge_partitions(self, part1, part2):
+        &#34;&#34;&#34;Merge partitions into one.
+
+        Merge partition `part1` and `part2` and update pgraph accordingly.
+
+        Parameters
+        ---
+
+        part1: int
+            integer index of the first partition to be merged
+
+        part2: int
+            integer index of the second partition to be merged
+        &#34;&#34;&#34;
+        log.debug(&#34;Merging partitions {} and {}.&#34;.format(part1, part2))
+        part_to, part_from = sorted([part1, part2])
+
+        # self._ppi
+        self._ppi[part_to] += self._ppi[part_from]
+        self._ppi = np.array(
+            [self._ppi[i] for i in range(self._np) if i != part_from]
+        )
+
+        # self.__ppij
+        self._ppij = self._ppij.merge_colrow(part_from, part_to)
+
+        # self._part
+        self._part.merge(part_from, part_to)
+
+        self._np -= 1
+        self._reset()
+
+    def _reset(self):
+        self._ppij = self._pij.project(self._part)
+        self._tryed_moves = {}
+
+    def nodes(self):
+        &#34;&#34;&#34;Iterator over nodes names.
+
+        Yields
+        ---
+
+        nodes
+        &#34;&#34;&#34;
+        yield from self._part.node_names()
+
+    def __repr__(self):
+        return &#34;Graph with {} nodes {} edges and {} partitions&#34;.format(
+            self._nn, len(self._pij._dok), self._np
+        )
+
+    def print_partition(self):
+        &#34;&#34;&#34;
+        Try to print the partition to screen using ASCII chars.
+        &#34;&#34;&#34;
+        try:
+            strng = &#34;&#34;.join([SYMBOLS[self._part[i]] for i in range(self._nn)])
+        except IndexError:
+            return &#34;Too many symbols!&#34;
+        if len(strng) &gt; 80:
+            return strng[:78] + &#34;…&#34;
+        else:
+            return strng
+
+    def partition(self):
+        &#34;&#34;&#34;Return the partition.
+
+        Returns
+        ---
+
+        partition: dict
+            a dictionary with nodes as keys and classes as values.
+        &#34;&#34;&#34;
+
+        return self._part.to_dictionary()
+
+    def __delta__(
+        self, h1old, h2old, h1new, h2new, beta=0.0, action=&#34;move&#34;
+    ):
+        return (2 - beta) * (h1new - h1old) - h2new + h2old
+
+    def autoinformation(self, beta):
+        &#34;&#34;&#34;Return the autoinformation value for the current partion.
+
+        Parameters
+        ---
+
+        beta: float
+            model selection parameter. (Default: 0)
+
+        Returns
+        ---
+
+        autoinformation: float
+            the autoinformation relative to the graph, partition and \( \\beta \)
+        &#34;&#34;&#34;
+        h_1 = utils.entropy(self._ppi)
+        h_2 = utils.entropy(self._ppij)
+        return (2 - beta) * h_1 - h_2</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="aisa.PGraph.nn"><code class="name">var <span class="ident">nn</span></code></dt>
+<dd>
+<div class="desc"><p>Number of nodes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def nn(self):
+    &#34;&#34;&#34;Number of nodes&#34;&#34;&#34;
+    return self._nn</code></pre>
+</details>
+</dd>
+<dt id="aisa.PGraph.np"><code class="name">var <span class="ident">np</span></code></dt>
+<dd>
+<div class="desc"><p>Number of partitions</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def np(self):
+    &#34;&#34;&#34;Number of partitions&#34;&#34;&#34;
+    return self._np</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="aisa.PGraph.autoinformation"><code class="name flex">
+<span>def <span class="ident">autoinformation</span></span>(<span>self, beta)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the autoinformation value for the current partion.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>beta</code></strong> :&ensp;<code>float</code></dt>
+<dd>model selection parameter. (Default: 0)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>autoinformation</code></strong> :&ensp;<code>float</code></dt>
+<dd>the autoinformation relative to the graph, partition and <span><span class="MathJax_Preview"> \beta </span><script type="math/tex"> \beta </script></span></dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def autoinformation(self, beta):
+    &#34;&#34;&#34;Return the autoinformation value for the current partion.
+
+    Parameters
+    ---
+
+    beta: float
+        model selection parameter. (Default: 0)
+
+    Returns
+    ---
+
+    autoinformation: float
+        the autoinformation relative to the graph, partition and \( \\beta \)
+    &#34;&#34;&#34;
+    h_1 = utils.entropy(self._ppi)
+    h_2 = utils.entropy(self._ppij)
+    return (2 - beta) * h_1 - h_2</code></pre>
+</details>
+</dd>
+<dt id="aisa.PGraph.merge_partitions"><code class="name flex">
+<span>def <span class="ident">merge_partitions</span></span>(<span>self, part1, part2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Merge partitions into one.</p>
+<p>Merge partition <code>part1</code> and <code>part2</code> and update pgraph accordingly.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>part1</code></strong> :&ensp;<code>int</code></dt>
+<dd>integer index of the first partition to be merged</dd>
+<dt><strong><code>part2</code></strong> :&ensp;<code>int</code></dt>
+<dd>integer index of the second partition to be merged</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge_partitions(self, part1, part2):
+    &#34;&#34;&#34;Merge partitions into one.
+
+    Merge partition `part1` and `part2` and update pgraph accordingly.
+
+    Parameters
+    ---
+
+    part1: int
+        integer index of the first partition to be merged
+
+    part2: int
+        integer index of the second partition to be merged
+    &#34;&#34;&#34;
+    log.debug(&#34;Merging partitions {} and {}.&#34;.format(part1, part2))
+    part_to, part_from = sorted([part1, part2])
+
+    # self._ppi
+    self._ppi[part_to] += self._ppi[part_from]
+    self._ppi = np.array(
+        [self._ppi[i] for i in range(self._np) if i != part_from]
+    )
+
+    # self.__ppij
+    self._ppij = self._ppij.merge_colrow(part_from, part_to)
+
+    # self._part
+    self._part.merge(part_from, part_to)
+
+    self._np -= 1
+    self._reset()</code></pre>
+</details>
+</dd>
+<dt id="aisa.PGraph.nodes"><code class="name flex">
+<span>def <span class="ident">nodes</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Iterator over nodes names.</p>
+<h2 id="yields">Yields</h2>
+<dl>
+<dt><code>nodes</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nodes(self):
+    &#34;&#34;&#34;Iterator over nodes names.
+
+    Yields
+    ---
+
+    nodes
+    &#34;&#34;&#34;
+    yield from self._part.node_names()</code></pre>
+</details>
+</dd>
+<dt id="aisa.PGraph.partition"><code class="name flex">
+<span>def <span class="ident">partition</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the partition.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>partition</code></strong> :&ensp;<code>dict</code></dt>
+<dd>a dictionary with nodes as keys and classes as values.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def partition(self):
+    &#34;&#34;&#34;Return the partition.
+
+    Returns
+    ---
+
+    partition: dict
+        a dictionary with nodes as keys and classes as values.
+    &#34;&#34;&#34;
+
+    return self._part.to_dictionary()</code></pre>
+</details>
+</dd>
+<dt id="aisa.PGraph.print_partition"><code class="name flex">
+<span>def <span class="ident">print_partition</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Try to print the partition to screen using ASCII chars.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_partition(self):
+    &#34;&#34;&#34;
+    Try to print the partition to screen using ASCII chars.
+    &#34;&#34;&#34;
+    try:
+        strng = &#34;&#34;.join([SYMBOLS[self._part[i]] for i in range(self._nn)])
+    except IndexError:
+        return &#34;Too many symbols!&#34;
+    if len(strng) &gt; 80:
+        return strng[:78] + &#34;…&#34;
+    else:
+        return strng</code></pre>
+</details>
+</dd>
+<dt id="aisa.PGraph.set_partition"><code class="name flex">
+<span>def <span class="ident">set_partition</span></span>(<span>self, partition=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set/Change the graph partition.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>partition</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The partition to be set. A dict with nodes as keys and classes as values</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_partition(self, partition=None):
+    &#34;&#34;&#34;Set/Change the graph partition.
+
+    Parameters
+    ---
+
+    partition: dict
+        The partition to be set. A dict with nodes as keys and classes as values
+
+    &#34;&#34;&#34;
+    # set up partition
+    if partition is not None:
+        self._part = utils.Partition(partition)
+    _part = sparse.csr_matrix(self._part.to_coo())
+    self._nn, self._np = _part.shape
+
+    self._ppij = self._pij.project(self._part)
+    p_pi = _part.transpose() @ self._pi
+    self._ppi = p_pi / p_pi.sum()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#aisa">AISA</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#install">Install</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="aisa.base" href="base.html">aisa.base</a></code></li>
+<li><code><a title="aisa.utils" href="utils.html">aisa.utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="aisa.best_partition" href="#aisa.best_partition">best_partition</a></code></li>
+<li><code><a title="aisa.entrogram" href="#aisa.entrogram">entrogram</a></code></li>
+<li><code><a title="aisa.merge_pgraph" href="#aisa.merge_pgraph">merge_pgraph</a></code></li>
+<li><code><a title="aisa.optimize" href="#aisa.optimize">optimize</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="aisa.PGraph" href="#aisa.PGraph">PGraph</a></code></h4>
+<ul class="two-column">
+<li><code><a title="aisa.PGraph.autoinformation" href="#aisa.PGraph.autoinformation">autoinformation</a></code></li>
+<li><code><a title="aisa.PGraph.merge_partitions" href="#aisa.PGraph.merge_partitions">merge_partitions</a></code></li>
+<li><code><a title="aisa.PGraph.nn" href="#aisa.PGraph.nn">nn</a></code></li>
+<li><code><a title="aisa.PGraph.nodes" href="#aisa.PGraph.nodes">nodes</a></code></li>
+<li><code><a title="aisa.PGraph.np" href="#aisa.PGraph.np">np</a></code></li>
+<li><code><a title="aisa.PGraph.partition" href="#aisa.PGraph.partition">partition</a></code></li>
+<li><code><a title="aisa.PGraph.print_partition" href="#aisa.PGraph.print_partition">print_partition</a></code></li>
+<li><code><a title="aisa.PGraph.set_partition" href="#aisa.PGraph.set_partition">set_partition</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+</footer>
+</body>
+</html>
