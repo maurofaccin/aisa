@@ -1,0 +1,1891 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.1" />
+<title>aisa.utils API documentation</title>
+<meta name="description" content="Utility functions and classes" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>aisa.utils</code></h1>
+</header>
+<section id="section-intro">
+<p>Utility functions and classes</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# =============================================================================
+# File      : utils.py
+# Creation  : 01 Sept 2020
+#
+# Copyright (c) 2020 Mauro Faccin &lt;mauro.fccn@gmail.com&gt;
+#               https://maurofaccin.github.io
+#
+# Description : Utility classes and function for base.py
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+# =============================================================================
+&#34;&#34;&#34;Utility functions and classes&#34;&#34;&#34;
+
+import numpy as np
+from scipy import sparse
+
+__all__ = [&#39;Prob&#39;, &#34;SparseMat&#34;, &#34;entropy&#34;]
+np.seterr(all=&#34;raise&#34;)
+
+
+class Prob():
+    &#34;&#34;&#34;A class to store the probability p and the plogp value.&#34;&#34;&#34;
+
+    __slots__ = [&#34;__p&#34;, &#34;__plogp&#34;]
+
+    def __init__(self, value):
+        &#34;&#34;&#34;Given a float or a Prob, store p and plogp.&#34;&#34;&#34;
+        # if float(value) &lt; 0.0:
+        #     raise ValueError(&#39;Must be non-negative.&#39;)
+        self.__p = float(value)
+        if isinstance(value, Prob):
+            self.__plogp = value.plogp
+        else:
+            self.__update_plogp()
+
+    def __update_plogp(self):
+        if 0.0 &lt; self.__p &lt; np.inf:
+            self.__plogp = self.__p * np.log2(self.__p)
+        elif np.isclose(self.__p, 0.0, 1e-13) or np.isclose(self.__p, 1.0):
+            self.__plogp = 0.0
+        else:
+            print(self)
+            raise ValueError(&#34;A probability should be between 0 and 1 not {}&#34;)
+
+    @property
+    def plogp(self):
+        return self.__plogp
+
+    @property
+    def p(self):
+        return self.__p
+
+    def copy(self):
+        return Prob(self)
+
+    def __float__(self):
+        return self.__p
+
+    def __iadd__(self, other):
+        self.__p += float(other)
+        self.__update_plogp()
+        return self
+
+    def __add__(self, other):
+        new = self.copy()
+        new += other
+        return new
+
+    def __isub__(self, other):
+        self.__p -= float(other)
+        self.__update_plogp()
+        return self
+
+    def __sub__(self, other):
+        new = self.copy()
+        new -= other
+        return new
+
+    def __imul__(self, other):
+        # update p
+        oldp = self.__p
+        self.__p *= float(other)
+
+        # update plogp
+        if isinstance(other, Prob):
+            self.__plogp = other.p * self.plogp + oldp * other.plogp
+        else:
+            self.__update_plogp()
+        return self
+
+    def __mul__(self, other):
+        new = self.copy()
+        new *= other
+        return new
+
+    def __itruediv__(self, other):
+        self.__p /= float(other)
+        self.__update_plogp()
+        return self
+
+    def __truediv__(self, other):
+        new = self.copy()
+        new /= other
+        return new
+
+    def __repr__(self):
+        return &#34;{:g} [{:g}]&#34;.format(self.__p, self.__plogp)
+
+    def __eq__(self, other):
+        # TODO: add approx?
+        return self.__p == float(other)
+
+    # set inverse operators
+    __radd__ = __add__
+    __rsub__ = __sub__
+    __rmul__ = __mul__
+    __rtruediv__ = __truediv__
+
+
+class SparseMat():
+    &#34;&#34;&#34;A sparse matrix with column and row slicing capabilities&#34;&#34;&#34;
+
+    __slots__ = [&#34;_dok&#34;, &#34;_nn&#34;, &#34;_dim&#34;, &#34;_norm&#34;, &#34;__p_thr&#34;]
+
+    def __init__(self, mat, node_num=None, normalize=False, plength=None):
+        &#34;&#34;&#34;Initiate the matrix
+
+        :mat: scipy sparse matrix or
+                list of ((i, j, ...), w) or
+                dict (i, j, ...): w
+        :node_num: number of nodes
+        :normalize: (bool) whether to normalize entries or not
+        :plenght: lenght of each path, to use only if len(mat) == 0
+        &#34;&#34;&#34;
+        if isinstance(mat, sparse.spmatrix):
+            mat = sparse.coo_matrix(mat)
+            self._dok = {
+                (i, j): Prob(d) for i, j, d in zip(mat.col, mat.row, mat.data)
+            }
+            if node_num is None:
+                self._nn = mat.shape[0]
+            self._dim = 2
+        elif isinstance(mat, dict):
+            self._dok = {tuple(k): Prob(v) for k, v in mat.items()}
+            if node_num is None:
+                self._nn = np.max([dd for d in self._dok for dd in d]) + 1
+            # get the first key of the dict
+            if plength is None:
+                val = next(iter(self._dok.keys()))
+                self._dim = len(val)
+            else:
+                self._dim = plength
+        else:
+            self._dok = {tuple(i): Prob(d) for i, d in mat}
+            if node_num is None:
+                self._nn = np.max([dd for d in self._dok for dd in d]) + 1
+            self._dim = len(mat[0][0])
+
+        if node_num is not None:
+            self._nn = node_num
+
+        if isinstance(normalize, (float, Prob)):
+            self._norm = Prob(normalize)
+        elif normalize:
+            vsum = np.sum([float(v) for v in self._dok.values()])
+            self._norm = Prob(vsum)
+        elif not normalize:
+            self._norm = Prob(1.0)
+        else:
+            raise ValueError()
+
+        if self._norm == 0.0 and len(self._dok) &gt; 0:
+            raise ValueError(&#34;This is a zero matrix&#34;)
+
+        self.__update_all_paths()
+
+    def entropy(self):
+        &#34;&#34;&#34;Return the entropy
+        (assuming this matrix is a probability distribution)
+        &#34;&#34;&#34;
+        if self._nn == 0:
+            return 0.0
+        sum_plogp = np.sum([p.plogp for p in self._dok.values()])
+        return (self._norm.plogp - sum_plogp) / self._norm.p
+
+    @property
+    def shape(self):
+        &#34;&#34;&#34;Return the shape of the tensor&#34;&#34;&#34;
+        return tuple([self._nn] * self._dim)
+
+    @property
+    def nn(self):
+        return self._nn
+
+    def checkme(self):
+        log.info(
+            &#34;{} -- NN {}; NL {}&#34;.format(
+                self.__class__.__name__, self._nn, len(self._dok)
+            )
+        )
+
+    def size(self):
+        return len(self._dok)
+
+    def project(self, part, move_node=None):
+        &#34;&#34;&#34;Returns a new SparseMat projected to part&#34;&#34;&#34;
+        _part = part.copy()
+
+        # if a node needs to be reassigned
+        if move_node is not None:
+            # old_part = _part[move_node[0]]
+            _part[move_node[0]] = move_node[1]
+
+        new_dok = {}
+        for path, val in self._dok.items():
+            new_indx = tuple(_part[i] for i in path)
+
+            new_dok.setdefault(new_indx, 0.0)
+            new_dok[new_indx] += val.copy()
+
+        return SparseMat(new_dok, node_num=_part.np, normalize=self._norm)
+
+    def copy(self):
+        return SparseMat(
+            {path[:]: w.copy() for path, w in self._dok.items()},
+            node_num=self._nn,
+            normalize=self._norm,
+            plength=self._dim,
+        )
+
+    def dot(self, other, indx):
+        if not isinstance(other, np.ndarray):
+            raise TypeError(
+                &#34;other should be numpy.ndarray, not {}&#34;.format(type(other))
+            )
+        out = np.zeros_like(other, dtype=float)
+        for path, w in self._dok.items():
+            out[path[indx]] += float(w) * other[path[1 + indx]]
+        return out / self._norm.p
+
+    def get_egonet(self, inode, axis=None):
+        &#34;&#34;&#34;Return the adjacency matrix of the ego net of node node.&#34;&#34;&#34;
+        if axis is None:
+            slist = [(p, self._dok[p]) for p in self.__p_thr[inode]]
+        else:
+            slist = [
+                (p, self._dok[p])
+                for p in self.__p_thr[inode]
+                if p[axis] == inode
+            ]
+        if len(slist) &lt; 1:
+            return None
+        return SparseMat(slist, node_num=self._nn, normalize=self._norm)
+
+    def get_submat(self, inodes):
+        return SparseMat(
+            {
+                p: self._dok[p]
+                for p in set().union(*[self.__p_thr[i] for i in inodes])
+            },
+            node_num=self._nn,
+            normalize=self._norm,
+        )
+
+    def slice(self, axis=0, n=0):
+        if axis == 0:
+            vec = [self._dok.get((n, nn), 0.0) for nn in range(self._nn)]
+        else:
+            vec = [self._dok.get((nn, n), 0.0) for nn in range(self._nn)]
+        return np.array(vec)
+
+    def get_random_entry(self, return_all_probs=False):
+        probs = np.array([float(n) for n in self._dok.values()])
+        probs /= probs.sum()
+
+        # choose one neighbour based on probs
+        link_id = np.random.choice(len(self._dok), p=probs)
+        link_prob = probs[link_id]
+        link = list(self._dok.keys())[link_id]
+        if return_all_probs:
+            return link, link_prob, probs
+        return link, link_prob
+
+    def paths_through_node(self, node, position=0):
+        return [p for p in self.__p_thr[node] if p[position] == node]
+
+    def paths(self, axis=None, node=None):
+        if axis is None or node is None:
+            yield from self.__iter__()
+
+        else:
+            for p, v in self._dok.items():
+                if p[axis] == node:
+                    yield p, v / self._norm
+
+    def set_path(self, path, weight):
+        &#34;&#34;&#34; Overwrite path weight. &#34;&#34;&#34;
+        self._dok[path] = Prob(weight) * self._norm
+        for i in path:
+            self.__p_thr[i].add(path)
+
+    def get_from_sparse(self, other, normalize=False):
+        return SparseMat(
+            {p: self._dok[p] for p, _ in other if p in self._dok},
+            node_num=self._nn,
+            normalize=normalize,
+        )
+
+    def get_from_paths(self, paths, normalize=False):
+        return SparseMat(
+            {p: self._dok[p] for p in paths if p in self._dok},
+            node_num=self._nn,
+            normalize=normalize,
+        )
+
+    def add_colrow(self):
+        self._nn += 1
+        self.__p_thr.append(set())
+        return self._nn - 1
+
+    def merge_colrow_bak(self, index_from, index_to):
+        &#34;&#34;&#34;Merge two indexes in each dimension.
+        Merge locally.
+        &#34;&#34;&#34;
+        if index_from == index_to:
+            return
+
+        for path in self.__p_thr[index_from]:
+            new_path = tuple(
+                [p if p != index_from else index_to for p in path]
+            )
+
+            prob = self._dok.pop(path)
+            self._dok.setdefault(new_path, 0.0)
+            self._dok[new_path] += prob
+
+            self.__p_thr[index_to].add(new_path)
+
+        # forgot to compact indices
+        self._nn -= 1
+
+    def merge_colrow(self, index_from, index_to):
+        &#34;&#34;&#34;Merge two indexes in each dimension.&#34;&#34;&#34;
+        if index_from == index_to:
+            return self.copy()
+
+        # indx1, indx2 = sorted([index1, index2])
+        new_dict = {}
+        for path, value in self._dok.items():
+            # change partition
+            newpath = [p if p != index_from else index_to for p in path]
+            # compact indices
+            newpath = tuple(p - int(p &gt; index_from) for p in newpath)
+            # newpath = tuple(
+            #     i - int(i &gt; indx2) if i != indx2 else indx1 for i in path
+            # )
+
+            new_dict.setdefault(newpath, 0.0)
+            new_dict[newpath] += value
+
+        return SparseMat(new_dict, node_num=self._nn - 1, normalize=self._norm)
+
+    def kron(self, other):
+        dok = {}
+        for n in range(self._nn):
+            for pA in self.paths_through_node(n, position=-1):
+                for pB in other.paths_through_node(n, position=0):
+                    dok[pA[:-1] + pB] = self._dok[pA] * other._dok[pB]
+
+        return SparseMat(
+            dok,
+            node_num=self._nn,
+            normalize=self._norm * other._norm
+            # normalize=True
+        )
+
+    def sum(self, axis=None):
+        # return the sum of all entries
+        if axis is not None:
+            probs = np.zeros(self._nn)
+            for p, v in self._dok.items():
+                probs[p[axis]] += float(v)
+            return probs / float(self._norm)
+        if self._nn == 0:
+            return 0.0
+        return np.sum([float(p) for p in self._dok.values()]) / float(
+            self._norm
+        )
+
+    def __update_all_paths(self):
+        &#34;&#34;&#34; For each node, all paths that go through it.&#34;&#34;&#34;
+        self.__p_thr = [set() for _ in range(self._nn)]
+        for path in self._dok.keys():
+            for i in path:
+                try:
+                    self.__p_thr[i].add(path)
+                except IndexError:
+                    print(path, self._nn)
+                    raise
+
+    def __or__(self, other):
+        &#34;&#34;&#34; Return a SparseMat with entries from both self and other.
+        Local entries will be overwritten by other&#39;s.
+        &#34;&#34;&#34;
+        new = self.copy()
+        for p, v in other:
+            new.set_path(p, v)
+        return new
+
+    def __iter__(self):
+        for k, v in self._dok.items():
+            yield k, v / self._norm
+
+    def __getitem__(self, item):
+        try:
+            return self._dok[item] / self._norm
+        except KeyError:
+            return 0.0
+
+    def __iadd__(self, other):
+        ratio = self._norm / other._norm
+        for p, d in other._dok.items():
+            if p in self._dok:
+                self._dok[p] += d * ratio
+            else:
+                self._dok[p] = d * ratio
+            for i in p:
+                self.__p_thr[i].add(p)
+        return self
+
+    def __add__(self, other):
+        new = self.copy()
+        new += other
+        return new
+
+    def __isub__(self, other):
+        ratio = self._norm / other._norm
+        &#34;&#34;&#34;Can provide negative values.&#34;&#34;&#34;
+        for path, prob in other._dok.items():
+            prob_norm = prob * ratio
+            lprob = self._dok.get(path, None)
+            if lprob is None:
+                print(&#39;AAA&#39;, prob, ratio, path, prob_norm)
+                raise ValueError
+            if np.isclose(float(lprob), float(prob_norm), atol=1e-12):
+                for i in path:
+                    self.__p_thr[i].discard(path)
+                del self._dok[path]
+            else:
+                # no need to update __p_thr
+                self._dok[path] -= prob_norm
+        return self
+
+    def __sub__(self, other):
+        new = self.copy()
+        new -= other
+        return new
+
+    def __imul__(self, other):
+        if self._nn != other._nn:
+            raise ValueError(
+                    &#34;Impossible to multiply matrices of different sizes&#34;
+                    f&#34; {self._nn} and {other._nn}&#34;
+                )
+        self._norm *= other._norm
+        if self.size() &lt; other.size():
+            keys = [k for k in self._dok if k in other._dok]
+        else:
+            keys = [k for k in other._dok if k in self._dok]
+        new_dok = {k: other._dok[k] * self._dok[k] for k in keys}
+
+        self._dok = new_dok
+        self.__update_all_paths()
+        return self
+
+    def __mul__(self, other):
+        new = self.copy()
+        new *= other
+        return new
+
+    def __eq__(self, other):
+        for p, v in self._dok.items():
+            if not np.isclose(
+                float(v / self._norm),
+                float(other._dok[p] / other._norm),
+                atol=1e-10,
+            ):
+                return False
+        return True
+
+
+class Partition():
+    &#34;&#34;&#34;a bidirectional dictionary to store partitions. (for internal use)&#34;&#34;&#34;
+
+    def __init__(self, partition: dict):
+        &#34;&#34;&#34;get a dictionary node-&gt;class&#34;&#34;&#34;
+        if partition is None:
+            self.n2i = None
+            self.i2n = None
+            self.parts = None
+            self.partition = {}
+        else:
+            self.from_dictionary(partition)
+
+    def node_names(self):
+        yield from self.n2i
+
+    def to_dictionary(self):
+        &#34;&#34;&#34;Return a dictionary node-&gt;part (usign original names)&#34;&#34;&#34;
+        return {self.i2n[inode]: part for inode, part in self.items()}
+
+    def from_dictionary(self, partition):
+        &#34;&#34;&#34;Set partition from a node-&gt;class dictionary&#34;&#34;&#34;
+
+        # save names for later use
+        # map names to index
+        self.n2i = {n: i for i, n in enumerate(partition.keys())}
+        # iverse map
+        self.i2n = {i: n for n, i in self.n2i.items()}
+
+        p2i = {p: i for i, p in enumerate(set(partition.values()))}
+        self.partition = {
+            self.n2i[n]: p2i[p] for n, p in partition.items()
+        }
+        # self = dict(partition)
+
+        self.parts = [set() for i in p2i.values()]
+        for node, part in self.items():
+            self.parts[part].add(node)
+
+    def to_coo(self):
+        &#34;&#34;&#34;Return a NxM projection matrix&#34;&#34;&#34;
+        return partition2coo_sparse(self)
+
+    @property
+    def np(self):
+        &#34;&#34;&#34;Return the number of partitions&#34;&#34;&#34;
+        return len(self.parts)
+
+    def __setitem__(self, node, part):
+        &#34;&#34;&#34;Set i_nodes to partition.&#34;&#34;&#34;
+
+        old_part = self[node]
+        if part == old_part:
+            return
+
+        # remove node from old partition
+        if len(self.parts[old_part]) == 1:
+            if self.np == part:
+                # do not move a sigleton to an empty partition
+                return
+            self.merge(old_part, part)
+            return
+
+        # set node partition
+        self.partition[node] = part
+
+        # add node to new partition
+        if part == len(self.parts):
+            self.parts.append(set())
+        self.parts[part].add(node)
+
+    def __len__(self):
+        return len(self.partition)
+
+    def __delitem__(self, node):
+        &#34;&#34;&#34;Remove nodes.&#34;&#34;&#34;
+        raise AttributeError(&#39;Nodes cannot be removed&#39;)
+
+    def merge(self, part_from, part_to):
+        nodes_to_move = self.parts[part_from].copy()
+
+        for node in nodes_to_move:
+            self.partition[node] = part_to
+
+        # compact indices
+        for node, part in self.items():
+            if part &gt; part_from:
+                self.partition[node] = part - 1
+
+        self.parts[part_to] |= self.parts[part_from]
+        self.parts.pop(part_from)
+
+    def items(self):
+        yield from self.partition.items()
+
+    def __getitem__(self, node):
+        return self.partition[node]
+
+    def copy(self):
+        return Partition(self.to_dictionary())
+
+    def keys(self):
+        yield from self.partition.keys()
+
+    def values(self):
+        yield from self.partition.values()
+
+
+class Bipartition(dict):
+    &#34;&#34;&#34;a bidirectional dictionary to store partitions.&#34;&#34;&#34;
+
+    def __init__(self, *args, **kwargs):
+        &#34;&#34;&#34;get a dictionary node-&gt;class&#34;&#34;&#34;
+        super(partition, self).__init__(*args, **kwargs)
+        self.part = {}
+        for key, value in self.items():
+            self.part.setdefault(value, []).append(key)
+
+    def __setitem__(self, key, value):
+        if key in self:
+            self.part[self[key]].remove(key)
+        super(partition, self).__setitem__(key, value)
+        self.part.setdefault(value, []).append(key)
+
+    def __delitem__(self, key):
+        self.part.setdefault(self[key], []).remove(key)
+        if self[key] in self.part and not self.part[self[key]]:
+            del self.part[self[key]]
+        super(partition, self).__delitem__(key)
+
+
+def entropy(array):
+    &#34;&#34;&#34;Compute the entropy of the array (or float).
+
+    Parameters
+    ----------
+    array: float, SparseMat, np.array
+
+    Return
+    ------
+    entropy: float
+    The entropy of the array
+    &#34;&#34;&#34;
+    # if array is a scalar
+    if isinstance(array, (float, np.float32, np.float64)):
+        if array &lt;= 0.0:
+            return 0.0
+        return -array * np.log2(array)
+
+    # if it is a vector or matrix
+    try:
+        # if it store plogp
+        return array.entropy()
+    except AttributeError:
+        # otherwise use numpy
+        array = np.array(array)
+        array = array[array &gt; 0]
+        return -np.sum(array * np.log2(array))
+
+
+def get_probabilities(
+        edges,
+        node_num,
+        symmetric=False,
+        return_transition=False,
+        compute_steady=False,
+        T=None
+        ):
+    &#34;&#34;&#34;Compute p_ij and p_i at the steady state&#34;&#34;&#34;
+
+    graph = edgelist2csr_sparse(edges, node_num)
+    if symmetric:
+        graph += graph.transpose()
+    steadystate = graph.sum(0)
+
+    diag = sparse.spdiags(1.0 / steadystate, [0], node_num, node_num)
+    transition = graph @ diag
+
+    if T is not None:
+        transition = transition ** T
+
+    if compute_steady:
+        diff = 1.0
+    else:
+        # go into the loop only if I need to compute the steady state recursively
+        diff = 0.0
+    count = 0
+    steadystate = np.array(steadystate).reshape(-1, 1) / steadystate.sum()
+    while diff &gt; 1e-10:
+        old_ss = steadystate.copy()
+        steadystate = transition @ steadystate
+        diff = np.abs(np.max(steadystate - old_ss))
+        count += 1
+        if count &gt; 1e5:
+            break
+
+    diag = sparse.spdiags(
+        steadystate.reshape((1, -1)), [0], node_num, node_num
+    )
+    if return_transition:
+        return transition, diag, np.array(steadystate).flatten()
+    else:
+        return transition @ diag, np.array(steadystate).flatten()
+
+
+def edgelist2csr_sparse(edgelist, node_num):
+    &#34;&#34;&#34;Edges as [(i, j, weight), …]&#34;&#34;&#34;
+    graph = sparse.coo_matrix(
+        (
+            # data
+            [e[2] for e in edgelist],
+            # i and j
+            ([e[1] for e in edgelist], [e[0] for e in edgelist]),
+        ),
+        shape=(node_num, node_num),
+    )
+    return sparse.csr_matrix(graph)
+
+
+def partition2coo_sparse(part):
+    &#34;&#34;&#34;from dict {(i, j, k, …): weight, …}&#34;&#34;&#34;
+    n_n = len(part)
+    n_p = part.np
+    try:
+        return sparse.coo_matrix(
+            (np.ones(n_n), (list(part.keys()), list(part.values()))),
+            shape=(n_n, n_p),
+            dtype=float,
+        )
+    except ValueError:
+        print(n_p, n_n)
+        raise
+
+
+def kron(A, B):
+    dok = {}
+    for n in range(A.shape[0]):
+        for pA in A.paths_through_node(n, position=-1):
+            for pB in B.paths_through_node(n, position=0):
+                dok[tuple(list(pA) + list(pB))] = A[pA] * B[pB]
+
+    return SparseMat(dok)
+
+
+def zeros(node_num):
+    return SparseMat({}, node_num=0, normalize=False)
+
+
+def zeros_like(sparsemat):
+    return SparseMat(
+        {}, node_num=sparsemat.nn, normalize=1.0, plength=sparsemat._dim
+    )</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="aisa.utils.entropy"><code class="name flex">
+<span>def <span class="ident">entropy</span></span>(<span>array)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the entropy of the array (or float).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>array</code></strong> :&ensp;<code>float, <a title="aisa.utils.SparseMat" href="#aisa.utils.SparseMat">SparseMat</a>, np.array</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="return">Return</h2>
+<p>entropy: float
+The entropy of the array</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def entropy(array):
+    &#34;&#34;&#34;Compute the entropy of the array (or float).
+
+    Parameters
+    ----------
+    array: float, SparseMat, np.array
+
+    Return
+    ------
+    entropy: float
+    The entropy of the array
+    &#34;&#34;&#34;
+    # if array is a scalar
+    if isinstance(array, (float, np.float32, np.float64)):
+        if array &lt;= 0.0:
+            return 0.0
+        return -array * np.log2(array)
+
+    # if it is a vector or matrix
+    try:
+        # if it store plogp
+        return array.entropy()
+    except AttributeError:
+        # otherwise use numpy
+        array = np.array(array)
+        array = array[array &gt; 0]
+        return -np.sum(array * np.log2(array))</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="aisa.utils.Prob"><code class="flex name class">
+<span>class <span class="ident">Prob</span></span>
+<span>(</span><span>value)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class to store the probability p and the plogp value.</p>
+<p>Given a float or a Prob, store p and plogp.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Prob():
+    &#34;&#34;&#34;A class to store the probability p and the plogp value.&#34;&#34;&#34;
+
+    __slots__ = [&#34;__p&#34;, &#34;__plogp&#34;]
+
+    def __init__(self, value):
+        &#34;&#34;&#34;Given a float or a Prob, store p and plogp.&#34;&#34;&#34;
+        # if float(value) &lt; 0.0:
+        #     raise ValueError(&#39;Must be non-negative.&#39;)
+        self.__p = float(value)
+        if isinstance(value, Prob):
+            self.__plogp = value.plogp
+        else:
+            self.__update_plogp()
+
+    def __update_plogp(self):
+        if 0.0 &lt; self.__p &lt; np.inf:
+            self.__plogp = self.__p * np.log2(self.__p)
+        elif np.isclose(self.__p, 0.0, 1e-13) or np.isclose(self.__p, 1.0):
+            self.__plogp = 0.0
+        else:
+            print(self)
+            raise ValueError(&#34;A probability should be between 0 and 1 not {}&#34;)
+
+    @property
+    def plogp(self):
+        return self.__plogp
+
+    @property
+    def p(self):
+        return self.__p
+
+    def copy(self):
+        return Prob(self)
+
+    def __float__(self):
+        return self.__p
+
+    def __iadd__(self, other):
+        self.__p += float(other)
+        self.__update_plogp()
+        return self
+
+    def __add__(self, other):
+        new = self.copy()
+        new += other
+        return new
+
+    def __isub__(self, other):
+        self.__p -= float(other)
+        self.__update_plogp()
+        return self
+
+    def __sub__(self, other):
+        new = self.copy()
+        new -= other
+        return new
+
+    def __imul__(self, other):
+        # update p
+        oldp = self.__p
+        self.__p *= float(other)
+
+        # update plogp
+        if isinstance(other, Prob):
+            self.__plogp = other.p * self.plogp + oldp * other.plogp
+        else:
+            self.__update_plogp()
+        return self
+
+    def __mul__(self, other):
+        new = self.copy()
+        new *= other
+        return new
+
+    def __itruediv__(self, other):
+        self.__p /= float(other)
+        self.__update_plogp()
+        return self
+
+    def __truediv__(self, other):
+        new = self.copy()
+        new /= other
+        return new
+
+    def __repr__(self):
+        return &#34;{:g} [{:g}]&#34;.format(self.__p, self.__plogp)
+
+    def __eq__(self, other):
+        # TODO: add approx?
+        return self.__p == float(other)
+
+    # set inverse operators
+    __radd__ = __add__
+    __rsub__ = __sub__
+    __rmul__ = __mul__
+    __rtruediv__ = __truediv__</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="aisa.utils.Prob.p"><code class="name">var <span class="ident">p</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def p(self):
+    return self.__p</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.Prob.plogp"><code class="name">var <span class="ident">plogp</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def plogp(self):
+    return self.__plogp</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="aisa.utils.Prob.copy"><code class="name flex">
+<span>def <span class="ident">copy</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy(self):
+    return Prob(self)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="aisa.utils.SparseMat"><code class="flex name class">
+<span>class <span class="ident">SparseMat</span></span>
+<span>(</span><span>mat, node_num=None, normalize=False, plength=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A sparse matrix with column and row slicing capabilities</p>
+<p>Initiate the matrix</p>
+<p>:mat: scipy sparse matrix or
+list of ((i, j, &hellip;), w) or
+dict (i, j, &hellip;): w
+:node_num: number of nodes
+:normalize: (bool) whether to normalize entries or not
+:plenght: lenght of each path, to use only if len(mat) == 0</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SparseMat():
+    &#34;&#34;&#34;A sparse matrix with column and row slicing capabilities&#34;&#34;&#34;
+
+    __slots__ = [&#34;_dok&#34;, &#34;_nn&#34;, &#34;_dim&#34;, &#34;_norm&#34;, &#34;__p_thr&#34;]
+
+    def __init__(self, mat, node_num=None, normalize=False, plength=None):
+        &#34;&#34;&#34;Initiate the matrix
+
+        :mat: scipy sparse matrix or
+                list of ((i, j, ...), w) or
+                dict (i, j, ...): w
+        :node_num: number of nodes
+        :normalize: (bool) whether to normalize entries or not
+        :plenght: lenght of each path, to use only if len(mat) == 0
+        &#34;&#34;&#34;
+        if isinstance(mat, sparse.spmatrix):
+            mat = sparse.coo_matrix(mat)
+            self._dok = {
+                (i, j): Prob(d) for i, j, d in zip(mat.col, mat.row, mat.data)
+            }
+            if node_num is None:
+                self._nn = mat.shape[0]
+            self._dim = 2
+        elif isinstance(mat, dict):
+            self._dok = {tuple(k): Prob(v) for k, v in mat.items()}
+            if node_num is None:
+                self._nn = np.max([dd for d in self._dok for dd in d]) + 1
+            # get the first key of the dict
+            if plength is None:
+                val = next(iter(self._dok.keys()))
+                self._dim = len(val)
+            else:
+                self._dim = plength
+        else:
+            self._dok = {tuple(i): Prob(d) for i, d in mat}
+            if node_num is None:
+                self._nn = np.max([dd for d in self._dok for dd in d]) + 1
+            self._dim = len(mat[0][0])
+
+        if node_num is not None:
+            self._nn = node_num
+
+        if isinstance(normalize, (float, Prob)):
+            self._norm = Prob(normalize)
+        elif normalize:
+            vsum = np.sum([float(v) for v in self._dok.values()])
+            self._norm = Prob(vsum)
+        elif not normalize:
+            self._norm = Prob(1.0)
+        else:
+            raise ValueError()
+
+        if self._norm == 0.0 and len(self._dok) &gt; 0:
+            raise ValueError(&#34;This is a zero matrix&#34;)
+
+        self.__update_all_paths()
+
+    def entropy(self):
+        &#34;&#34;&#34;Return the entropy
+        (assuming this matrix is a probability distribution)
+        &#34;&#34;&#34;
+        if self._nn == 0:
+            return 0.0
+        sum_plogp = np.sum([p.plogp for p in self._dok.values()])
+        return (self._norm.plogp - sum_plogp) / self._norm.p
+
+    @property
+    def shape(self):
+        &#34;&#34;&#34;Return the shape of the tensor&#34;&#34;&#34;
+        return tuple([self._nn] * self._dim)
+
+    @property
+    def nn(self):
+        return self._nn
+
+    def checkme(self):
+        log.info(
+            &#34;{} -- NN {}; NL {}&#34;.format(
+                self.__class__.__name__, self._nn, len(self._dok)
+            )
+        )
+
+    def size(self):
+        return len(self._dok)
+
+    def project(self, part, move_node=None):
+        &#34;&#34;&#34;Returns a new SparseMat projected to part&#34;&#34;&#34;
+        _part = part.copy()
+
+        # if a node needs to be reassigned
+        if move_node is not None:
+            # old_part = _part[move_node[0]]
+            _part[move_node[0]] = move_node[1]
+
+        new_dok = {}
+        for path, val in self._dok.items():
+            new_indx = tuple(_part[i] for i in path)
+
+            new_dok.setdefault(new_indx, 0.0)
+            new_dok[new_indx] += val.copy()
+
+        return SparseMat(new_dok, node_num=_part.np, normalize=self._norm)
+
+    def copy(self):
+        return SparseMat(
+            {path[:]: w.copy() for path, w in self._dok.items()},
+            node_num=self._nn,
+            normalize=self._norm,
+            plength=self._dim,
+        )
+
+    def dot(self, other, indx):
+        if not isinstance(other, np.ndarray):
+            raise TypeError(
+                &#34;other should be numpy.ndarray, not {}&#34;.format(type(other))
+            )
+        out = np.zeros_like(other, dtype=float)
+        for path, w in self._dok.items():
+            out[path[indx]] += float(w) * other[path[1 + indx]]
+        return out / self._norm.p
+
+    def get_egonet(self, inode, axis=None):
+        &#34;&#34;&#34;Return the adjacency matrix of the ego net of node node.&#34;&#34;&#34;
+        if axis is None:
+            slist = [(p, self._dok[p]) for p in self.__p_thr[inode]]
+        else:
+            slist = [
+                (p, self._dok[p])
+                for p in self.__p_thr[inode]
+                if p[axis] == inode
+            ]
+        if len(slist) &lt; 1:
+            return None
+        return SparseMat(slist, node_num=self._nn, normalize=self._norm)
+
+    def get_submat(self, inodes):
+        return SparseMat(
+            {
+                p: self._dok[p]
+                for p in set().union(*[self.__p_thr[i] for i in inodes])
+            },
+            node_num=self._nn,
+            normalize=self._norm,
+        )
+
+    def slice(self, axis=0, n=0):
+        if axis == 0:
+            vec = [self._dok.get((n, nn), 0.0) for nn in range(self._nn)]
+        else:
+            vec = [self._dok.get((nn, n), 0.0) for nn in range(self._nn)]
+        return np.array(vec)
+
+    def get_random_entry(self, return_all_probs=False):
+        probs = np.array([float(n) for n in self._dok.values()])
+        probs /= probs.sum()
+
+        # choose one neighbour based on probs
+        link_id = np.random.choice(len(self._dok), p=probs)
+        link_prob = probs[link_id]
+        link = list(self._dok.keys())[link_id]
+        if return_all_probs:
+            return link, link_prob, probs
+        return link, link_prob
+
+    def paths_through_node(self, node, position=0):
+        return [p for p in self.__p_thr[node] if p[position] == node]
+
+    def paths(self, axis=None, node=None):
+        if axis is None or node is None:
+            yield from self.__iter__()
+
+        else:
+            for p, v in self._dok.items():
+                if p[axis] == node:
+                    yield p, v / self._norm
+
+    def set_path(self, path, weight):
+        &#34;&#34;&#34; Overwrite path weight. &#34;&#34;&#34;
+        self._dok[path] = Prob(weight) * self._norm
+        for i in path:
+            self.__p_thr[i].add(path)
+
+    def get_from_sparse(self, other, normalize=False):
+        return SparseMat(
+            {p: self._dok[p] for p, _ in other if p in self._dok},
+            node_num=self._nn,
+            normalize=normalize,
+        )
+
+    def get_from_paths(self, paths, normalize=False):
+        return SparseMat(
+            {p: self._dok[p] for p in paths if p in self._dok},
+            node_num=self._nn,
+            normalize=normalize,
+        )
+
+    def add_colrow(self):
+        self._nn += 1
+        self.__p_thr.append(set())
+        return self._nn - 1
+
+    def merge_colrow_bak(self, index_from, index_to):
+        &#34;&#34;&#34;Merge two indexes in each dimension.
+        Merge locally.
+        &#34;&#34;&#34;
+        if index_from == index_to:
+            return
+
+        for path in self.__p_thr[index_from]:
+            new_path = tuple(
+                [p if p != index_from else index_to for p in path]
+            )
+
+            prob = self._dok.pop(path)
+            self._dok.setdefault(new_path, 0.0)
+            self._dok[new_path] += prob
+
+            self.__p_thr[index_to].add(new_path)
+
+        # forgot to compact indices
+        self._nn -= 1
+
+    def merge_colrow(self, index_from, index_to):
+        &#34;&#34;&#34;Merge two indexes in each dimension.&#34;&#34;&#34;
+        if index_from == index_to:
+            return self.copy()
+
+        # indx1, indx2 = sorted([index1, index2])
+        new_dict = {}
+        for path, value in self._dok.items():
+            # change partition
+            newpath = [p if p != index_from else index_to for p in path]
+            # compact indices
+            newpath = tuple(p - int(p &gt; index_from) for p in newpath)
+            # newpath = tuple(
+            #     i - int(i &gt; indx2) if i != indx2 else indx1 for i in path
+            # )
+
+            new_dict.setdefault(newpath, 0.0)
+            new_dict[newpath] += value
+
+        return SparseMat(new_dict, node_num=self._nn - 1, normalize=self._norm)
+
+    def kron(self, other):
+        dok = {}
+        for n in range(self._nn):
+            for pA in self.paths_through_node(n, position=-1):
+                for pB in other.paths_through_node(n, position=0):
+                    dok[pA[:-1] + pB] = self._dok[pA] * other._dok[pB]
+
+        return SparseMat(
+            dok,
+            node_num=self._nn,
+            normalize=self._norm * other._norm
+            # normalize=True
+        )
+
+    def sum(self, axis=None):
+        # return the sum of all entries
+        if axis is not None:
+            probs = np.zeros(self._nn)
+            for p, v in self._dok.items():
+                probs[p[axis]] += float(v)
+            return probs / float(self._norm)
+        if self._nn == 0:
+            return 0.0
+        return np.sum([float(p) for p in self._dok.values()]) / float(
+            self._norm
+        )
+
+    def __update_all_paths(self):
+        &#34;&#34;&#34; For each node, all paths that go through it.&#34;&#34;&#34;
+        self.__p_thr = [set() for _ in range(self._nn)]
+        for path in self._dok.keys():
+            for i in path:
+                try:
+                    self.__p_thr[i].add(path)
+                except IndexError:
+                    print(path, self._nn)
+                    raise
+
+    def __or__(self, other):
+        &#34;&#34;&#34; Return a SparseMat with entries from both self and other.
+        Local entries will be overwritten by other&#39;s.
+        &#34;&#34;&#34;
+        new = self.copy()
+        for p, v in other:
+            new.set_path(p, v)
+        return new
+
+    def __iter__(self):
+        for k, v in self._dok.items():
+            yield k, v / self._norm
+
+    def __getitem__(self, item):
+        try:
+            return self._dok[item] / self._norm
+        except KeyError:
+            return 0.0
+
+    def __iadd__(self, other):
+        ratio = self._norm / other._norm
+        for p, d in other._dok.items():
+            if p in self._dok:
+                self._dok[p] += d * ratio
+            else:
+                self._dok[p] = d * ratio
+            for i in p:
+                self.__p_thr[i].add(p)
+        return self
+
+    def __add__(self, other):
+        new = self.copy()
+        new += other
+        return new
+
+    def __isub__(self, other):
+        ratio = self._norm / other._norm
+        &#34;&#34;&#34;Can provide negative values.&#34;&#34;&#34;
+        for path, prob in other._dok.items():
+            prob_norm = prob * ratio
+            lprob = self._dok.get(path, None)
+            if lprob is None:
+                print(&#39;AAA&#39;, prob, ratio, path, prob_norm)
+                raise ValueError
+            if np.isclose(float(lprob), float(prob_norm), atol=1e-12):
+                for i in path:
+                    self.__p_thr[i].discard(path)
+                del self._dok[path]
+            else:
+                # no need to update __p_thr
+                self._dok[path] -= prob_norm
+        return self
+
+    def __sub__(self, other):
+        new = self.copy()
+        new -= other
+        return new
+
+    def __imul__(self, other):
+        if self._nn != other._nn:
+            raise ValueError(
+                    &#34;Impossible to multiply matrices of different sizes&#34;
+                    f&#34; {self._nn} and {other._nn}&#34;
+                )
+        self._norm *= other._norm
+        if self.size() &lt; other.size():
+            keys = [k for k in self._dok if k in other._dok]
+        else:
+            keys = [k for k in other._dok if k in self._dok]
+        new_dok = {k: other._dok[k] * self._dok[k] for k in keys}
+
+        self._dok = new_dok
+        self.__update_all_paths()
+        return self
+
+    def __mul__(self, other):
+        new = self.copy()
+        new *= other
+        return new
+
+    def __eq__(self, other):
+        for p, v in self._dok.items():
+            if not np.isclose(
+                float(v / self._norm),
+                float(other._dok[p] / other._norm),
+                atol=1e-10,
+            ):
+                return False
+        return True</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="aisa.utils.SparseMat.nn"><code class="name">var <span class="ident">nn</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def nn(self):
+    return self._nn</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.shape"><code class="name">var <span class="ident">shape</span></code></dt>
+<dd>
+<div class="desc"><p>Return the shape of the tensor</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def shape(self):
+    &#34;&#34;&#34;Return the shape of the tensor&#34;&#34;&#34;
+    return tuple([self._nn] * self._dim)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="aisa.utils.SparseMat.add_colrow"><code class="name flex">
+<span>def <span class="ident">add_colrow</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_colrow(self):
+    self._nn += 1
+    self.__p_thr.append(set())
+    return self._nn - 1</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.checkme"><code class="name flex">
+<span>def <span class="ident">checkme</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def checkme(self):
+    log.info(
+        &#34;{} -- NN {}; NL {}&#34;.format(
+            self.__class__.__name__, self._nn, len(self._dok)
+        )
+    )</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.copy"><code class="name flex">
+<span>def <span class="ident">copy</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy(self):
+    return SparseMat(
+        {path[:]: w.copy() for path, w in self._dok.items()},
+        node_num=self._nn,
+        normalize=self._norm,
+        plength=self._dim,
+    )</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.dot"><code class="name flex">
+<span>def <span class="ident">dot</span></span>(<span>self, other, indx)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dot(self, other, indx):
+    if not isinstance(other, np.ndarray):
+        raise TypeError(
+            &#34;other should be numpy.ndarray, not {}&#34;.format(type(other))
+        )
+    out = np.zeros_like(other, dtype=float)
+    for path, w in self._dok.items():
+        out[path[indx]] += float(w) * other[path[1 + indx]]
+    return out / self._norm.p</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.entropy"><code class="name flex">
+<span>def <span class="ident">entropy</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the entropy
+(assuming this matrix is a probability distribution)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def entropy(self):
+    &#34;&#34;&#34;Return the entropy
+    (assuming this matrix is a probability distribution)
+    &#34;&#34;&#34;
+    if self._nn == 0:
+        return 0.0
+    sum_plogp = np.sum([p.plogp for p in self._dok.values()])
+    return (self._norm.plogp - sum_plogp) / self._norm.p</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.get_egonet"><code class="name flex">
+<span>def <span class="ident">get_egonet</span></span>(<span>self, inode, axis=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the adjacency matrix of the ego net of node node.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_egonet(self, inode, axis=None):
+    &#34;&#34;&#34;Return the adjacency matrix of the ego net of node node.&#34;&#34;&#34;
+    if axis is None:
+        slist = [(p, self._dok[p]) for p in self.__p_thr[inode]]
+    else:
+        slist = [
+            (p, self._dok[p])
+            for p in self.__p_thr[inode]
+            if p[axis] == inode
+        ]
+    if len(slist) &lt; 1:
+        return None
+    return SparseMat(slist, node_num=self._nn, normalize=self._norm)</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.get_from_paths"><code class="name flex">
+<span>def <span class="ident">get_from_paths</span></span>(<span>self, paths, normalize=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_from_paths(self, paths, normalize=False):
+    return SparseMat(
+        {p: self._dok[p] for p in paths if p in self._dok},
+        node_num=self._nn,
+        normalize=normalize,
+    )</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.get_from_sparse"><code class="name flex">
+<span>def <span class="ident">get_from_sparse</span></span>(<span>self, other, normalize=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_from_sparse(self, other, normalize=False):
+    return SparseMat(
+        {p: self._dok[p] for p, _ in other if p in self._dok},
+        node_num=self._nn,
+        normalize=normalize,
+    )</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.get_random_entry"><code class="name flex">
+<span>def <span class="ident">get_random_entry</span></span>(<span>self, return_all_probs=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_random_entry(self, return_all_probs=False):
+    probs = np.array([float(n) for n in self._dok.values()])
+    probs /= probs.sum()
+
+    # choose one neighbour based on probs
+    link_id = np.random.choice(len(self._dok), p=probs)
+    link_prob = probs[link_id]
+    link = list(self._dok.keys())[link_id]
+    if return_all_probs:
+        return link, link_prob, probs
+    return link, link_prob</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.get_submat"><code class="name flex">
+<span>def <span class="ident">get_submat</span></span>(<span>self, inodes)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_submat(self, inodes):
+    return SparseMat(
+        {
+            p: self._dok[p]
+            for p in set().union(*[self.__p_thr[i] for i in inodes])
+        },
+        node_num=self._nn,
+        normalize=self._norm,
+    )</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.kron"><code class="name flex">
+<span>def <span class="ident">kron</span></span>(<span>self, other)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def kron(self, other):
+    dok = {}
+    for n in range(self._nn):
+        for pA in self.paths_through_node(n, position=-1):
+            for pB in other.paths_through_node(n, position=0):
+                dok[pA[:-1] + pB] = self._dok[pA] * other._dok[pB]
+
+    return SparseMat(
+        dok,
+        node_num=self._nn,
+        normalize=self._norm * other._norm
+        # normalize=True
+    )</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.merge_colrow"><code class="name flex">
+<span>def <span class="ident">merge_colrow</span></span>(<span>self, index_from, index_to)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Merge two indexes in each dimension.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge_colrow(self, index_from, index_to):
+    &#34;&#34;&#34;Merge two indexes in each dimension.&#34;&#34;&#34;
+    if index_from == index_to:
+        return self.copy()
+
+    # indx1, indx2 = sorted([index1, index2])
+    new_dict = {}
+    for path, value in self._dok.items():
+        # change partition
+        newpath = [p if p != index_from else index_to for p in path]
+        # compact indices
+        newpath = tuple(p - int(p &gt; index_from) for p in newpath)
+        # newpath = tuple(
+        #     i - int(i &gt; indx2) if i != indx2 else indx1 for i in path
+        # )
+
+        new_dict.setdefault(newpath, 0.0)
+        new_dict[newpath] += value
+
+    return SparseMat(new_dict, node_num=self._nn - 1, normalize=self._norm)</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.merge_colrow_bak"><code class="name flex">
+<span>def <span class="ident">merge_colrow_bak</span></span>(<span>self, index_from, index_to)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Merge two indexes in each dimension.
+Merge locally.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge_colrow_bak(self, index_from, index_to):
+    &#34;&#34;&#34;Merge two indexes in each dimension.
+    Merge locally.
+    &#34;&#34;&#34;
+    if index_from == index_to:
+        return
+
+    for path in self.__p_thr[index_from]:
+        new_path = tuple(
+            [p if p != index_from else index_to for p in path]
+        )
+
+        prob = self._dok.pop(path)
+        self._dok.setdefault(new_path, 0.0)
+        self._dok[new_path] += prob
+
+        self.__p_thr[index_to].add(new_path)
+
+    # forgot to compact indices
+    self._nn -= 1</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.paths"><code class="name flex">
+<span>def <span class="ident">paths</span></span>(<span>self, axis=None, node=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def paths(self, axis=None, node=None):
+    if axis is None or node is None:
+        yield from self.__iter__()
+
+    else:
+        for p, v in self._dok.items():
+            if p[axis] == node:
+                yield p, v / self._norm</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.paths_through_node"><code class="name flex">
+<span>def <span class="ident">paths_through_node</span></span>(<span>self, node, position=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def paths_through_node(self, node, position=0):
+    return [p for p in self.__p_thr[node] if p[position] == node]</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.project"><code class="name flex">
+<span>def <span class="ident">project</span></span>(<span>self, part, move_node=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a new SparseMat projected to part</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def project(self, part, move_node=None):
+    &#34;&#34;&#34;Returns a new SparseMat projected to part&#34;&#34;&#34;
+    _part = part.copy()
+
+    # if a node needs to be reassigned
+    if move_node is not None:
+        # old_part = _part[move_node[0]]
+        _part[move_node[0]] = move_node[1]
+
+    new_dok = {}
+    for path, val in self._dok.items():
+        new_indx = tuple(_part[i] for i in path)
+
+        new_dok.setdefault(new_indx, 0.0)
+        new_dok[new_indx] += val.copy()
+
+    return SparseMat(new_dok, node_num=_part.np, normalize=self._norm)</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.set_path"><code class="name flex">
+<span>def <span class="ident">set_path</span></span>(<span>self, path, weight)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Overwrite path weight.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_path(self, path, weight):
+    &#34;&#34;&#34; Overwrite path weight. &#34;&#34;&#34;
+    self._dok[path] = Prob(weight) * self._norm
+    for i in path:
+        self.__p_thr[i].add(path)</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.size"><code class="name flex">
+<span>def <span class="ident">size</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def size(self):
+    return len(self._dok)</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.slice"><code class="name flex">
+<span>def <span class="ident">slice</span></span>(<span>self, axis=0, n=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def slice(self, axis=0, n=0):
+    if axis == 0:
+        vec = [self._dok.get((n, nn), 0.0) for nn in range(self._nn)]
+    else:
+        vec = [self._dok.get((nn, n), 0.0) for nn in range(self._nn)]
+    return np.array(vec)</code></pre>
+</details>
+</dd>
+<dt id="aisa.utils.SparseMat.sum"><code class="name flex">
+<span>def <span class="ident">sum</span></span>(<span>self, axis=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sum(self, axis=None):
+    # return the sum of all entries
+    if axis is not None:
+        probs = np.zeros(self._nn)
+        for p, v in self._dok.items():
+            probs[p[axis]] += float(v)
+        return probs / float(self._norm)
+    if self._nn == 0:
+        return 0.0
+    return np.sum([float(p) for p in self._dok.values()]) / float(
+        self._norm
+    )</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="aisa" href="index.html">aisa</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="aisa.utils.entropy" href="#aisa.utils.entropy">entropy</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="aisa.utils.Prob" href="#aisa.utils.Prob">Prob</a></code></h4>
+<ul class="">
+<li><code><a title="aisa.utils.Prob.copy" href="#aisa.utils.Prob.copy">copy</a></code></li>
+<li><code><a title="aisa.utils.Prob.p" href="#aisa.utils.Prob.p">p</a></code></li>
+<li><code><a title="aisa.utils.Prob.plogp" href="#aisa.utils.Prob.plogp">plogp</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="aisa.utils.SparseMat" href="#aisa.utils.SparseMat">SparseMat</a></code></h4>
+<ul class="two-column">
+<li><code><a title="aisa.utils.SparseMat.add_colrow" href="#aisa.utils.SparseMat.add_colrow">add_colrow</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.checkme" href="#aisa.utils.SparseMat.checkme">checkme</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.copy" href="#aisa.utils.SparseMat.copy">copy</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.dot" href="#aisa.utils.SparseMat.dot">dot</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.entropy" href="#aisa.utils.SparseMat.entropy">entropy</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.get_egonet" href="#aisa.utils.SparseMat.get_egonet">get_egonet</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.get_from_paths" href="#aisa.utils.SparseMat.get_from_paths">get_from_paths</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.get_from_sparse" href="#aisa.utils.SparseMat.get_from_sparse">get_from_sparse</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.get_random_entry" href="#aisa.utils.SparseMat.get_random_entry">get_random_entry</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.get_submat" href="#aisa.utils.SparseMat.get_submat">get_submat</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.kron" href="#aisa.utils.SparseMat.kron">kron</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.merge_colrow" href="#aisa.utils.SparseMat.merge_colrow">merge_colrow</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.merge_colrow_bak" href="#aisa.utils.SparseMat.merge_colrow_bak">merge_colrow_bak</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.nn" href="#aisa.utils.SparseMat.nn">nn</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.paths" href="#aisa.utils.SparseMat.paths">paths</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.paths_through_node" href="#aisa.utils.SparseMat.paths_through_node">paths_through_node</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.project" href="#aisa.utils.SparseMat.project">project</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.set_path" href="#aisa.utils.SparseMat.set_path">set_path</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.shape" href="#aisa.utils.SparseMat.shape">shape</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.size" href="#aisa.utils.SparseMat.size">size</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.slice" href="#aisa.utils.SparseMat.slice">slice</a></code></li>
+<li><code><a title="aisa.utils.SparseMat.sum" href="#aisa.utils.SparseMat.sum">sum</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+</footer>
+</body>
+</html>
