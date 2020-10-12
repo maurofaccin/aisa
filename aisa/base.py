@@ -48,20 +48,27 @@ SYMBOLS = "0123456789ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghjklmnopqrstuvwxyz"
 
 
 class PGraph():
-    """A Graph with partition.
-
-        :graph: nx.[Di]Graph()
-        :compute_steady: bool
-        :init_part: dict {node: part, ...}
+    """A graph with a partition.
     """
 
-    def __init__(self, graph, compute_steady=True, init_part=None, T=None):
-        """A graph with partition
+    def __init__(self, graph, init_part=None, compute_steady=True, T=None):
+        """Initialize from `networkx` graphs.
 
-        :graph: nx.[Di]Graph()
-        :compute_steady: bool
-        :init_part: dict {node: part, ...}
+        Parameters
+        ---
 
+        graph: nx.[Di]Graph()
+            The graph
+
+        init_part: dict
+            initial partition to start the optimization. (Default: N singletons)
+
+        compute_steady: bool
+            If steady state need to be computed. (Default: True)
+            If False, the steady state will be the marginal.
+
+        T: int
+            time scale parameter value. (Default: 1)
         """
 
         if isinstance(graph, nx.DiGraph):
@@ -103,7 +110,15 @@ class PGraph():
         self._reset()
 
     def set_partition(self, partition=None):
-        """Set/Change the graph partition"""
+        """Set/Change the graph partition.
+
+        Parameters
+        ---
+
+        partition: dict
+            The partition to be set. A dict with nodes as keys and classes as values
+
+        """
         # set up partition
         if partition is not None:
             self._part = utils.Partition(partition)
@@ -248,7 +263,7 @@ class PGraph():
                 ]
             )
 
-        delta_obj = self.delta(
+        delta_obj = self.__delta__(
             h1_pre, H2_pre, h1_post, H2_post, action=act, **kwargs
         )
 
@@ -285,7 +300,7 @@ class PGraph():
             return None
 
         for p1, p2 in neigneig_full(self):
-            d = self.try_merge(p1, p2, **kwargs)
+            d = self.__try_merge__(p1, p2, **kwargs)
             if d > best["delta"]:
                 best = {"parts": (p1, p2), "delta": d}
             if d > 0:
@@ -296,7 +311,7 @@ class PGraph():
 
         return best["parts"]
 
-    def try_merge(self, p1, p2, **kwargs):
+    def __try_merge__(self, p1, p2, **kwargs):
         p12 = self._ppij.get_submat([p1, p2])
         H2pre = utils.entropy(p12)
 
@@ -305,7 +320,7 @@ class PGraph():
 
         h1pre = utils.entropy(self._ppi[p1]) + utils.entropy(self._ppi[p2])
         h1post = utils.entropy(self._ppi[p1] + self._ppi[p2])
-        return self.delta(
+        return self.__delta__(
             h1pre, H2pre, h1post, H2post, action="merge", **kwargs
         )
 
@@ -336,15 +351,20 @@ class PGraph():
         self._np += 1
         self._reset()
 
-    def project(self, node):
-        try:
-            out = (self._part[i] for i in node)
-        except TypeError:
-            out = self._part[node]
-        return out
-
     def merge_partitions(self, part1, part2):
-        """Merge partitions into one"""
+        """Merge partitions into one.
+
+        Merge partition `part1` and `part2` and update pgraph accordingly.
+
+        Parameters
+        ---
+
+        part1: int
+            integer index of the first partition to be merged
+
+        part2: int
+            integer index of the second partition to be merged
+        """
         log.debug("Merging partitions {} and {}.".format(part1, part2))
         part_to, part_from = sorted([part1, part2])
 
@@ -363,19 +383,19 @@ class PGraph():
         self._np -= 1
         self._reset()
 
-    def sum(self):
-        """Return the sum of the projected p(i)."""
-        return np.sum([float(n) for n in self._ppi])
-
     def _reset(self):
         self._ppij = self._pij.project(self._part)
         self._tryed_moves = {}
 
     def nodes(self):
-        yield from self._part.node_names()
+        """Iterator over nodes names.
 
-    def parts(self):
-        yield from range(len(self._part.np))
+        Yields
+        ---
+
+        nodes
+        """
+        yield from self._part.node_names()
 
     def __repr__(self):
         return "Graph with {} nodes {} edges and {} partitions".format(
@@ -383,6 +403,9 @@ class PGraph():
         )
 
     def print_partition(self):
+        """
+        Try to print the partition to screen using ASCII chars.
+        """
         try:
             strng = "".join([SYMBOLS[self._part[i]] for i in range(self._nn)])
         except IndexError:
@@ -392,26 +415,41 @@ class PGraph():
         else:
             return strng
 
-    def entropies(self):
-        return utils.entropy(self._ppi), utils.entropy(self._ppij)
-
     def partition(self):
-        """Return a dict of node: partition."""
+        """Return the partition.
+
+        Returns
+        ---
+
+        partition: dict
+            a dictionary with nodes as keys and classes as values.
+        """
+
         return self._part.to_dictionary()
 
-    def partitions(self):
-        """Return a list of partion names."""
-        yield from range(len(self._part.np))
-
-    def delta(
+    def __delta__(
         self, h1old, h2old, h1new, h2new, beta=0.0, action="move"
     ):
         return (2 - beta) * (h1new - h1old) - h2new + h2old
 
     def autoinformation(self, beta):
-        """Return the autoinformation value for the current partion"""
-        h1, h2 = self.entropies()
-        return (2 - beta) * h1 - h2
+        """Return the autoinformation value for the current partion.
+
+        Parameters
+        ---
+
+        beta: float
+            model selection parameter. (Default: 0)
+
+        Returns
+        ---
+
+        autoinformation: float
+            the autoinformation relative to the graph, partition and \(\\beta\)
+        """
+        h_1 = utils.entropy(self._ppi)
+        h_2 = utils.entropy(self._ppij)
+        return (2 - beta) * h_1 - h_2
 
 
 def neigneig_full(pgraph, kind='projected'):
