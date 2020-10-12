@@ -1,6 +1,4 @@
-# AISA
-
-Auto-Information State Aggregation
+## Auto-Information State Aggregation
 
 This is a python module aimed at optimizing state aggregation based on the maximization of Auto-Information on dynamical processes evolving on networks.
 
@@ -12,7 +10,14 @@ This is a python module aimed at optimizing state aggregation based on the maxim
 
 ## Install
 
+Download the code [here](https://github.com/maurofaccin/aisa/archive/master.zip) or clone it locally from [Github](https://github.com/maurofaccin/aisa).
+
+Run:
 `python setup.py install [--user]`
+
+## Usage
+
+Read the [documentation](https://maurofaccin.github.io/aisa)
 
 ## License
 
