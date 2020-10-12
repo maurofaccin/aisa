@@ -445,7 +445,7 @@ class PGraph():
         ---
 
         autoinformation: float
-            the autoinformation relative to the graph, partition and \(\\beta\)
+            the autoinformation relative to the graph, partition and \( \\beta \)
         """
         h_1 = utils.entropy(self._ppi)
         h_2 = utils.entropy(self._ppij)

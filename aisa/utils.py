@@ -37,7 +37,14 @@ class Prob():
     __slots__ = ["__p", "__plogp"]
 
     def __init__(self, value):
-        """Given a float or a Prob, store p and plogp."""
+        """Given a float or a Prob, store p and plogp.
+
+        Parameters
+        ---
+
+        value: float
+            The probability value
+        """
         # if float(value) < 0.0:
         #     raise ValueError('Must be non-negative.')
         self.__p = float(value)
@@ -57,10 +64,12 @@ class Prob():
 
     @property
     def plogp(self):
+        """Return the value of \( p \\log p \)"""
         return self.__plogp
 
     @property
     def p(self):
+        """Return the probability"""
         return self.__p
 
     def copy(self):
@@ -131,19 +140,34 @@ class Prob():
 
 
 class SparseMat():
-    """A sparse matrix with column and row slicing capabilities"""
+    """A sparse square matrix with column and row slicing capabilities.
+
+    The aim of this matrix is to represent a probability distribution and facilitate entropy calculation.
+    It may be of more that two dimensions.
+    """
 
     __slots__ = ["_dok", "_nn", "_dim", "_norm", "__p_thr"]
 
     def __init__(self, mat, node_num=None, normalize=False, plength=None):
         """Initiate the matrix
 
-        :mat: scipy sparse matrix or
-                list of ((i, j, ...), w) or
-                dict (i, j, ...): w
-        :node_num: number of nodes
-        :normalize: (bool) whether to normalize entries or not
-        :plenght: lenght of each path, to use only if len(mat) == 0
+        Parameters
+        ---
+
+        mat: scipy sparse matrix or list or dict
+            The values of the matrix which can be:
+                - a scipy sparse matrix
+                - a list of ((i, j, ...), w)
+                - a dict (i, j, ...): w
+
+        node_num: int
+            number of nodes
+
+        normalize: bool
+            whether to normalize entries or not
+
+        plenght: int
+            lenght of each path, to use only if len(mat) == 0
         """
         if isinstance(mat, sparse.spmatrix):
             mat = sparse.coo_matrix(mat)
@@ -198,11 +222,13 @@ class SparseMat():
 
     @property
     def shape(self):
-        """Return the shape of the tensor"""
+        """Return the shape of the tensor.
+        """
         return tuple([self._nn] * self._dim)
 
     @property
     def nn(self):
+        """Number of columns and rows."""
         return self._nn
 
     def checkme(self):
