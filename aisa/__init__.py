@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+
+.. include:: ../README.md
+"""
 
 # Author: Mauro Faccin 2020
 # -------------------------
@@ -9,7 +13,10 @@
 # |   see LICENSE.txt     |
 # -------------------------
 
+
 from .base import *
+
+__all__ = ["PGraph", "best_partition", "merge_pgraph", "entrogram", "optimize"]
 
 __productname__ = 'AISA'
 __version__ = '0.1'

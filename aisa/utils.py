@@ -22,10 +22,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # =============================================================================
+"""Utility functions and classes"""
 
 import numpy as np
 from scipy import sparse
 
+__all__ = ['Prob', "SparseMat", "entropy"]
 np.seterr(all="raise")
 
 
@@ -632,7 +634,17 @@ class Bipartition(dict):
 
 
 def entropy(array):
-    """Compute entropy."""
+    """Compute the entropy of the array (or float).
+
+    Parameters
+    ----------
+    array: float, SparseMat, np.array
+
+    Return
+    ------
+    entropy: float
+    The entropy of the array
+    """
     # if array is a scalar
     if isinstance(array, (float, np.float32, np.float64)):
         if array <= 0.0:
