@@ -598,6 +598,7 @@ class Partition():
         if part == len(self.parts):
             self.parts.append(set())
         self.parts[part].add(node)
+        self.parts[old_part].remove(node)
 
     def __len__(self):
         return len(self.partition)
@@ -607,6 +608,7 @@ class Partition():
         raise AttributeError('Nodes cannot be removed')
 
     def merge(self, part_from, part_to):
+        """Merge two classes."""
         nodes_to_move = self.parts[part_from].copy()
 
         for node in nodes_to_move:
