@@ -82,7 +82,7 @@ class PGraph():
         nnodes = _graph.number_of_nodes()
 
         if init_part is None:
-            init_part = {node: node for node in _graph.number_of_nodes()}
+            init_part = {node: node for node in range(_graph.number_of_nodes())}
         self._part = utils.Partition(init_part)
 
         # compute the probabilities p(i, j) and p(i)
@@ -219,11 +219,7 @@ class PGraph():
         else:
             # move inode to anothere partition
             probs_go = self._move_probability(inode)
-            try:
-                new_part = rdm.choice(np.arange(self._np), p=probs_go)
-            except ValueError:
-                print(self._np, probs_go.shape, self._ppij.shape, self._ppi.shape)
-                raise
+            new_part = rdm.choice(np.arange(self._np), p=probs_go)
             p_sub = self._ppij.get_submat([old_part, new_part])
 
             prob_move = probs_go[new_part]
@@ -282,7 +278,7 @@ class PGraph():
         old_part = self._part[inode]
         if len(self._part.parts[old_part]) == 1:
             self.merge_partitions(partition, old_part)
-            return
+            return None
 
         pnode = self._pi[inode]
         self._ppi[old_part] -= pnode
