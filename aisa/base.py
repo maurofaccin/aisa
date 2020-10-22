@@ -148,7 +148,7 @@ class PGraph():
         """
 
         if part_probs is None:
-            part_probs = self._ppij
+            part_probs = self._ppij.copy()
         n_ego_out = self._pij.get_egonet(inode, axis=0).project(self._part)
         n_ego_in = self._pij.get_egonet(inode, axis=1).project(self._part)
 
@@ -183,10 +183,11 @@ class PGraph():
         """Select one node and a partition to move to.
         Returns the probability of the move and the delta energy.
         """
+        rdm = np.random.default_rng()
 
         # get a random node
         if inode is None:
-            inode = np.random.randint(self._nn)
+            inode = rdm.integers(self._nn)
         # save its starting partition
         old_part = self._part[inode]
 
@@ -206,7 +207,7 @@ class PGraph():
             return None, None, None, None
         n_ego = n_ego_full.project(self._part)
 
-        if np.random.random() < delta:
+        if rdm.random() < delta:
             # inode is going to start a new partition
             n_ego.add_colrow()
             p_sub = self._ppij.get_egonet(old_part)
@@ -218,7 +219,11 @@ class PGraph():
         else:
             # move inode to anothere partition
             probs_go = self._move_probability(inode)
-            new_part = np.random.choice(np.arange(self._np), p=probs_go)
+            try:
+                new_part = rdm.choice(np.arange(self._np), p=probs_go)
+            except ValueError:
+                print(self._np, probs_go.shape, self._ppij.shape, self._ppi.shape)
+                raise
             p_sub = self._ppij.get_submat([old_part, new_part])
 
             prob_move = probs_go[new_part]
@@ -654,6 +659,9 @@ def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
     tsteps: int
         Maximum number of steps in the optimization process. (Default: 10k)
     """
+
+    rdm = np.random.default_rng()
+
     bestp = pgraph.partition()
     cumul = 0.0
     moves = [
@@ -697,7 +705,7 @@ def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
             if "tqdm" in sys.modules and log.level >= 20:
                 tsrange.set_description("{} [{}]".format(moves[2], pgraph.np))
         else:
-            rand = np.random.rand()
+            rand = rdm.random()
             if rand == 0.0:
                 continue
 
