@@ -183,6 +183,7 @@ class PGraph():
         """Select one node and a partition to move to.
         Returns the probability of the move and the delta energy.
         """
+
         rdm = np.random.default_rng()
 
         # get a random node
@@ -667,7 +668,7 @@ def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
         0,  # changes since last move
     ]
 
-    if "tqdm" in sys.modules and log.level >= 20:
+    if "tqdm" in sys.modules and 20 <= log.level < 50:
         tsrange = tqdm.trange(tsteps)
     else:
         tsrange = range(tsteps)
@@ -698,8 +699,6 @@ def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
             moves[0] += 1
             moves[3] = 0
             log.debug("accepted move")
-            if "tqdm" in sys.modules and log.level >= 20:
-                tsrange.set_description("{} [{}]".format(moves[2], pgraph.np))
         else:
             rand = rdm.random()
             if rand == 0.0:
@@ -709,6 +708,7 @@ def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
             if sim_ann == 0.0:
                 continue
             threshold = invtemp * delta / sim_ann + np.log(p)
+
             if np.log(rand) < threshold:
                 if r_part == pgraph.np:
                     pgraph._split(r_node)
@@ -718,10 +718,13 @@ def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
                 moves[1] += 1
                 moves[3] = 0
                 log.debug("accepted move {} < {}".format(rand, threshold))
-                if "tqdm" in sys.modules and log.level >= 20:
-                    tsrange.set_description(
-                        "{} [{}]".format(moves[2], pgraph.np)
-                    )
+            try:
+                tsrange.set_description(
+                    "{} [{}]".format(moves[2], pgraph.np)
+                )
+            except AttributeError:
+                pass
+
             else:
                 log.debug("rejected move")
                 moves[3] += 1
