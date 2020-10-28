@@ -24,24 +24,41 @@
 </header>
 <section id="section-intro">
 <h2 id="auto-information-state-aggregation">Auto-Information State Aggregation</h2>
-<p>This is a python module aimed at optimizing state aggregation based on the maximization of Auto-Information on dynamical processes evolving on networks.</p>
-<h2 id="requirements">Requirements</h2>
+<p>This is a python module aimed at partitioning networks through the maximization of Auto-Information.
+If you use this code, please cite the following paper:</p>
+<blockquote>
+<p><strong>State aggregations in Markov chains and block models of networks</strong>, <br>
+<em>Faccin, Schaub and Delvenne</em>,
+<a href="https://arxiv.org/abs/2005.00337">ArXiv 2005.00337</a></p>
+</blockquote>
+<p>The module provides also a function to compute the Entrogram of a network with a suitable partition.
+The Entrogram provides a concise, visual characterization of the Markovianity of the dynamics projected to the partition space.
+In case you use this, please cite the following paper:</p>
+<blockquote>
+<p><strong>Entrograms and coarse graining of dynamics on complex networks</strong>, <br>
+<em>Faccin, Schaub and Delvenne</em>,
+<a href="https://academic.oup.com/comnet/article-abstract/6/5/661/4587985">Journal of Complex Networks, 6(5) p. 661-678 (2018)</a>, <br>
+<a href="https://arxiv.org/abs/1711.01987">ArXiv 1711.01987</a></p>
+</blockquote>
+<h2 id="getting-the-code">Getting the code</h2>
+<h3 id="requirements">Requirements</h3>
+<p>The following modules are required to <code><a title="aisa" href="#aisa">aisa</a></code> to work properly:</p>
 <ul>
 <li><code>numpy</code> and <code>scipy</code></li>
 <li><code>networkx</code></li>
 <li><code>tqdm</code> (optional)</li>
 </ul>
-<h2 id="install">Install</h2>
-<p>Download the code <a href="https://github.com/maurofaccin/aisa/archive/master.zip">here</a> and unzip locally or clone the <code>git</code> repository from <a href="https://github.com/maurofaccin/aisa">:octocat: Github</a>.</p>
-<p>Run:</p>
+<h3 id="install">Install</h3>
+<p>Download the code <a href="https://github.com/maurofaccin/aisa/archive/master.zip">here</a> and unzip locally or clone the <code>git</code> repository from <a href="https://github.com/maurofaccin/aisa">Github</a>.</p>
+<p>On the terminl run:</p>
 <pre><code>pip install --user path/to/module
 </code></pre>
-<h2 id="uninstall">Uninstall</h2>
-<p>Run:</p>
+<h3 id="uninstall">Uninstall</h3>
+<p>On the terminl run:</p>
 <pre><code>$ pip uninstall aisa
 </code></pre>
 <h2 id="usage">Usage</h2>
-<p>Read the <a href="https://maurofaccin.github.io/aisa">documentation</a></p>
+<p>Read the <a href="https://maurofaccin.github.io/aisa">online documentation</a>.</p>
 <h2 id="license">License</h2>
 <p>Copyright: Mauro Faccin (2020)</p>
 <p>AISA is free software: you can redistribute it and/or modify
@@ -285,9 +302,12 @@ If False, the steady state will be the marginal.</dd>
 <div class="toc">
 <ul>
 <li><a href="#auto-information-state-aggregation">Auto-Information State Aggregation</a></li>
+<li><a href="#getting-the-code">Getting the code</a><ul>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#install">Install</a></li>
 <li><a href="#uninstall">Uninstall</a></li>
+</ul>
+</li>
 <li><a href="#usage">Usage</a></li>
 <li><a href="#license">License</a></li>
 </ul>
