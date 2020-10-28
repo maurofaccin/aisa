@@ -621,7 +621,7 @@ def best_partition(
     # start with hierarchical merging
     merge_pgraph(pgraph, kmin=kmin, kmax=kmax, beta=beta)
     # optimize
-    best = optimize(pgraph, invtemp, tsteps, kmin, kmax, beta=beta)
+    best = optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=beta)
 
     results = dict(best)
     pgraph.set_partition(results)
