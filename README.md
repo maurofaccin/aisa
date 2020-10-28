@@ -10,10 +10,19 @@ This is a python module aimed at optimizing state aggregation based on the maxim
 
 ## Install
 
-Download the code [here](https://github.com/maurofaccin/aisa/archive/master.zip) or clone it locally from [Github](https://github.com/maurofaccin/aisa).
+Download the code [here](https://github.com/maurofaccin/aisa/archive/master.zip) and unzip locally or clone the `git` repository from [:octocat: Github](https://github.com/maurofaccin/aisa).
 
 Run:
-`python setup.py install [--user]`
+```
+pip install --user path/to/module
+```
+
+## Uninstall
+
+Run:
+```
+$ pip uninstall aisa
+```
 
 ## Usage
 
