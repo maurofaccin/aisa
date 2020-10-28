@@ -1,5 +1,5 @@
 
-docs/index.html:
+docs/index.html: README.md aisa/*.py
 	pdoc --html\
 	    --output-dir docs\
 	    --config latex_math=True\
