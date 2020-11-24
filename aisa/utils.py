@@ -64,7 +64,7 @@ class Prob():
 
     @property
     def plogp(self):
-        """Return the value of \( p \\log p \)"""
+        """Return the value of \\( p \\log p \\)"""
         return self.__plogp
 
     @property
@@ -142,7 +142,8 @@ class Prob():
 class SparseMat():
     """A sparse square matrix with column and row slicing capabilities.
 
-    The aim of this matrix is to represent a probability distribution and facilitate entropy calculation.
+    The aim of this matrix is to represent a probability distribution
+    and facilitate entropy calculation.
     It may be of more that two dimensions.
     """
 
@@ -231,14 +232,8 @@ class SparseMat():
         """Number of columns and rows."""
         return self._nn
 
-    def checkme(self):
-        log.info(
-            "{} -- NN {}; NL {}".format(
-                self.__class__.__name__, self._nn, len(self._dok)
-            )
-        )
-
     def size(self):
+        """Returns the number of edges."""
         return len(self._dok)
 
     def project(self, part, move_node=None):
@@ -527,6 +522,21 @@ class SparseMat():
                 return False
         return True
 
+    def to_csr(self):
+        """Return a copy in scipy.sparse.csr_matrix"""
+        smat = sparse.coo_matrix(
+            (
+                [float(p) for p in self._dok.values()],
+                (
+                    [indx[0] for indx in self._dok],
+                    [indx[1] for indx in self._dok]
+                )
+            ),
+            shape=self.shape,
+            dtype=float
+        )
+        return smat.tocsr()
+
 
 class Partition():
     """a bidirectional dictionary to store partitions. (for internal use)"""
@@ -731,8 +741,8 @@ def get_probabilities(
     )
     if return_transition:
         return transition, diag, np.array(steadystate).flatten()
-    else:
-        return transition @ diag, np.array(steadystate).flatten()
+
+    return transition @ diag, np.array(steadystate).flatten()
 
 
 def edgelist2csr_sparse(edgelist, node_num):
