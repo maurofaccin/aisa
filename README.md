@@ -45,7 +45,8 @@ $ pip uninstall aisa
 ## Usage
 
 Read the [online documentation](https://maurofaccin.github.io/aisa) that describes all classes and functions of the modules.
-A simple example is provided in form of an `ipython` notebook [here](https://github.com/maurofaccin/aisa/blob/master/examples/Karate_Club.ipynb).
+A simple example is provided in form of an `ipython` notebook in [github](https://github.com/maurofaccin/aisa/blob/master/examples/Karate_Club.ipynb)
+or in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/master/examples/Karate_Club.ipynb)
 
 ## License
 
