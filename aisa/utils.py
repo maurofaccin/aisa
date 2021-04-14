@@ -22,7 +22,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # =============================================================================
-"""Utility functions and classes"""
+"""Utility functions and classes."""
 
 import numpy as np
 from scipy import sparse
@@ -40,8 +40,7 @@ class Prob():
         """Given a float or a Prob, store p and plogp.
 
         Parameters
-        ---
-
+        ----------
         value: float
             The probability value
         """
@@ -64,41 +63,72 @@ class Prob():
 
     @property
     def plogp(self):
-        """Return the value of \\( p \\log p \\)"""
+        """Return plog(p).
+
+        Returns
+        -------
+        plogp : float
+            return the values of plog(p)
+        """
         return self.__plogp
 
     @property
     def p(self):
-        """Return the probability"""
+        """Return the value of p.
+
+        Returns
+        -------
+        p : float
+            the value of p
+        """
         return self.__p
 
     def copy(self):
+        """Return a copy of itself.
+
+        Returns
+        -------
+        probability : Prob
+            a copy of self
+        """
         return Prob(self)
 
     def __float__(self):
+        """Return probability.
+
+        Returns
+        -------
+        p : float
+            returns the probability as float.
+        """
         return self.__p
 
     def __iadd__(self, other):
+        """Add."""
         self.__p += float(other)
         self.__update_plogp()
         return self
 
     def __add__(self, other):
+        """Add."""
         new = self.copy()
         new += other
         return new
 
     def __isub__(self, other):
+        """Subtract."""
         self.__p -= float(other)
         self.__update_plogp()
         return self
 
     def __sub__(self, other):
+        """Subtract."""
         new = self.copy()
         new -= other
         return new
 
     def __imul__(self, other):
+        """Multiply."""
         # update p
         oldp = self.__p
         self.__p *= float(other)
@@ -111,24 +141,29 @@ class Prob():
         return self
 
     def __mul__(self, other):
+        """Multiply."""
         new = self.copy()
         new *= other
         return new
 
     def __itruediv__(self, other):
+        """Divide."""
         self.__p /= float(other)
         self.__update_plogp()
         return self
 
     def __truediv__(self, other):
+        """Divide."""
         new = self.copy()
         new /= other
         return new
 
     def __repr__(self):
+        """Representation."""
         return "{:g} [{:g}]".format(self.__p, self.__plogp)
 
     def __eq__(self, other):
+        """Test equivalence."""
         # TODO: add approx?
         return self.__p == float(other)
 
@@ -150,25 +185,26 @@ class SparseMat():
     __slots__ = ["_dok", "_nn", "_dim", "_norm", "__p_thr"]
 
     def __init__(self, mat, node_num=None, normalize=False, plength=None):
-        """Initiate the matrix
+        """Initiate the matrix.
 
         Parameters
-        ---
-
-        mat: scipy sparse matrix or list or dict
+        ----------
+        mat : scipy sparse matrix or list or dict
             The values of the matrix which can be:
                 - a scipy sparse matrix
                 - a list of ((i, j, ...), w)
                 - a dict (i, j, ...): w
-
-        node_num: int
+        node_num : int
             number of nodes
-
-        normalize: bool
+        normalize : bool
             whether to normalize entries or not
-
-        plenght: int
+        plength : int
             lenght of each path, to use only if len(mat) == 0
+
+        Raises
+        ------
+        ValueError :
+            if normalize is not a float, Prob or bool
         """
         if isinstance(mat, sparse.spmatrix):
             mat = sparse.coo_matrix(mat)
@@ -213,8 +249,12 @@ class SparseMat():
         self.__update_all_paths()
 
     def entropy(self):
-        """Return the entropy
-        (assuming this matrix is a probability distribution)
+        """Return the entropy of self.
+
+        Returns
+        -------
+        entropy : float
+            The entropy (assuming this matrix is a probability distribution)
         """
         if self._nn == 0:
             return 0.0
@@ -223,21 +263,52 @@ class SparseMat():
 
     @property
     def shape(self):
-        """Return the shape of the tensor.
+        """Return the shapeof the matrix.
+
+        Returns
+        -------
+        shape : tuple
+            a tuple of ints representing the shape of the matrix
         """
         return tuple([self._nn] * self._dim)
 
     @property
     def nn(self):
-        """Number of columns and rows."""
+        """Return the number of nodes.
+
+        Returns
+        -------
+        nn : int
+            the number of nodes
+        """
         return self._nn
 
     def size(self):
-        """Returns the number of edges."""
+        """Return the number of non-zero elements.
+
+        Returns
+        -------
+        size : int
+            the number of non-zero elements.
+        """
         return len(self._dok)
 
     def project(self, part, move_node=None):
-        """Returns a new SparseMat projected to part"""
+        """Project the matrix to a partition subspace.
+
+        Parameters
+        ----------
+        part : dict
+            a partition of the graph.
+        move_node : tuple or None, default: None
+            a tuple with (node, new_partition).
+            If not None, this node is moved to the new partition before projecting.
+
+        Returns
+        -------
+        projected_matrix : SparseMat
+            the matrix projected to the partition space.
+        """
         _part = part.copy()
 
         # if a node needs to be reassigned
@@ -255,6 +326,13 @@ class SparseMat():
         return SparseMat(new_dok, node_num=_part.np, normalize=self._norm)
 
     def copy(self):
+        """Return a copy of itself.
+
+        Returns
+        -------
+        sparse_mat : SparseMat
+            a copy of itself.
+        """
         return SparseMat(
             {path[:]: w.copy() for path, w in self._dok.items()},
             node_num=self._nn,
@@ -273,7 +351,22 @@ class SparseMat():
         return out / self._norm.p
 
     def get_egonet(self, inode, axis=None):
-        """Return the adjacency matrix of the ego net of node node."""
+        r"""Extract ego-network of a node.
+
+        Parameters
+        ----------
+        inode : int
+            node
+        axis : int or None, default=None
+            If not `None`, restricts the returned egonet to paths that pass through
+            the given node at the `axis` step. Othewise all paths going through
+            that node are returned.
+
+        Returns
+        -------
+        egonet : SparseMat
+            the egonet of the node.
+        """
         if axis is None:
             slist = [(p, self._dok[p]) for p in self.__p_thr[inode]]
         else:
@@ -287,6 +380,17 @@ class SparseMat():
         return SparseMat(slist, node_num=self._nn, normalize=self._norm)
 
     def get_submat(self, inodes):
+        """Return a submatrix of self defined by nodes in `inodes`.
+
+        Parameters
+        ----------
+        inodes : list of ints
+            nodes to extract from the matrix
+        Returns
+        -------
+        submatrix : SparseMat
+            the submatrix of all paths going through any of the nodes in `inodes`
+        """
         return SparseMat(
             {
                 p: self._dok[p]
@@ -297,13 +401,52 @@ class SparseMat():
         )
 
     def slice(self, axis=0, n=0):
-        if axis == 0:
-            vec = [self._dok.get((n, nn), 0.0) for nn in range(self._nn)]
-        else:
-            vec = [self._dok.get((nn, n), 0.0) for nn in range(self._nn)]
-        return np.array(vec)
+        """Return a slice along an axis.
+
+        Parameters
+        ----------
+        axis : {0, 1}
+            axis to slice (Default value = 0)
+        n :
+            (Default value = 0)
+
+        Returns
+        -------
+        output : array
+            description
+        """
+        def path(x, y, d):
+            """Return the weight of constant path except for on an axis.
+
+            Returns
+            -------
+            value :
+                the entry of self corresponding to the path [y, y, y, y, x, y, y, y]
+                where `x` is on axis `d`.
+            """
+            p = np.full(self._dim, y)
+            p[d] = x
+            return self._dok.get(tuple(p), 0.0)
+
+        return np.array([path(n, nn, axis) for nn in range(self._nn)])
 
     def get_random_entry(self, return_all_probs=False):
+        """Get a random entry weighted by the weights.
+
+        Parameters
+        ----------
+        return_all_probs : (optional) bool, default=False
+            if True return the probability of choosing any path
+
+        Returns
+        -------
+        path : tuple
+            the path
+        link_prob : float
+            the probability of choosing this path
+        probs : (optional) array
+            if `return_all_probs` is True, the probabilities to choose any path.
+        """
         probs = np.array([float(n) for n in self._dok.values()])
         probs /= probs.sum()
 
@@ -315,10 +458,39 @@ class SparseMat():
             return link, link_prob, probs
         return link, link_prob
 
-    def paths_through_node(self, node, position=0):
-        return [p for p in self.__p_thr[node] if p[position] == node]
+    def paths_through_node(self, node, axis=0):
+        """Retuns all paths going through a node at a given step.
+
+        Parameters
+        ----------
+        node : int
+            the node
+        axis : int, default=0
+            The step at which the path should go through the node.
+
+        Returns
+        -------
+        paths : list of tuples
+            the list of paths going through the node at the given step.
+        """
+        return [p for p in self.__p_thr[node] if p[axis] == node]
 
     def paths(self, axis=None, node=None):
+        """Iterate over paths.
+
+        Parameters
+        ----------
+        axis : (optional) int or None
+            if not None, return the paths that go through the node at this step.
+        node : (optional) int or None
+            if not None, return the paths that go through the node at this step.
+
+        Yields
+        ------
+        paths, value : tuple, Prob
+            paths and values. If both `axis` and `node` are not None, only paths
+            going through that node at that step.
+        """
         if axis is None or node is None:
             yield from self.__iter__()
 
@@ -328,12 +500,34 @@ class SparseMat():
                     yield p, v / self._norm
 
     def set_path(self, path, weight):
-        """ Overwrite path weight. """
+        """Overwrite path weight.
+
+        Parameters
+        ----------
+        path : tuple of ints
+            the new path
+        weight : float or Prob
+            the new weight
+        """
         self._dok[path] = Prob(weight) * self._norm
         for i in path:
             self.__p_thr[i].add(path)
 
     def get_from_sparse(self, other, normalize=False):
+        """Get weights from self on entries from another SparseMat.
+
+        Parameters
+        ----------
+        other : SparseMat
+            the matrix defining the paths of interest
+        normalize : (optional) bool, default=False
+            if True, renormalize before returning.
+
+        Returns
+        -------
+        matrix : SparseMat
+            the new matrix with entries from self where other is non-zero.
+        """
         return SparseMat(
             {p: self._dok[p] for p, _ in other if p in self._dok},
             node_num=self._nn,
@@ -341,6 +535,20 @@ class SparseMat():
         )
 
     def get_from_paths(self, paths, normalize=False):
+        """Get weights from self on entries from a list of paths.
+
+        Parameters
+        ----------
+        paths : list of tuples of ints
+            a list of paths.
+        normalize : (optional) bool, default=False
+            if True, renormalize before returning.
+
+        Returns
+        -------
+        matrix : SparseMat
+            the new matrix with entries only from the list of paths.
+        """
         return SparseMat(
             {p: self._dok[p] for p in paths if p in self._dok},
             node_num=self._nn,
@@ -348,6 +556,7 @@ class SparseMat():
         )
 
     def add_colrow(self):
+        """Add a new empty node at the end."""
         self._nn += 1
         self.__p_thr.append(set())
         return self._nn - 1
@@ -395,10 +604,11 @@ class SparseMat():
         return SparseMat(new_dict, node_num=self._nn - 1, normalize=self._norm)
 
     def kron(self, other):
+        """Kronecker product."""
         dok = {}
         for n in range(self._nn):
-            for pA in self.paths_through_node(n, position=-1):
-                for pB in other.paths_through_node(n, position=0):
+            for pA in self.paths_through_node(n, axis=-1):
+                for pB in other.paths_through_node(n, axis=0):
                     dok[pA[:-1] + pB] = self._dok[pA] * other._dok[pB]
 
         return SparseMat(
@@ -409,6 +619,17 @@ class SparseMat():
         )
 
     def sum(self, axis=None):
+        """Retuns the sum of all entries.
+
+        Parameters
+        ----------
+        axis : (optional) int or None, default=None
+            if not `None`, project to the given axis (or step).
+
+        Returns
+        -------
+        sum : float
+        """
         # return the sum of all entries
         if axis is not None:
             probs = np.zeros(self._nn)
@@ -416,6 +637,8 @@ class SparseMat():
                 probs[p[axis]] += float(v)
             return probs / float(self._norm)
         if self._nn == 0:
+            return 0.0
+        if len(self._dok) == 0:
             return 0.0
         return np.sum([float(p) for p in self._dok.values()]) / float(
             self._norm
