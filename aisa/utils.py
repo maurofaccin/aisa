@@ -206,29 +206,7 @@ class SparseMat():
         ValueError :
             if normalize is not a float, Prob or bool
         """
-        if isinstance(mat, sparse.spmatrix):
-            mat = sparse.coo_matrix(mat)
-            self._dok = {
-                (i, j): Prob(d) for i, j, d in zip(mat.col, mat.row, mat.data)
-            }
-            if node_num is None:
-                self._nn = mat.shape[0]
-            self._dim = 2
-        elif isinstance(mat, dict):
-            self._dok = {tuple(k): Prob(v) for k, v in mat.items()}
-            if node_num is None:
-                self._nn = np.max([dd for d in self._dok for dd in d]) + 1
-            # get the first key of the dict
-            if plength is None:
-                val = next(iter(self._dok.keys()))
-                self._dim = len(val)
-            else:
-                self._dim = plength
-        else:
-            self._dok = {tuple(i): Prob(d) for i, d in mat}
-            if node_num is None:
-                self._nn = np.max([dd for d in self._dok for dd in d]) + 1
-            self._dim = len(mat[0][0])
+        self._dok, self._nn, self._dim = self.__any_to_dok__(mat, node_num, plength=plength)
 
         if node_num is not None:
             self._nn = node_num
@@ -247,6 +225,39 @@ class SparseMat():
             raise ValueError("This is a zero matrix")
 
         self.__update_all_paths()
+
+    @classmethod
+    def __any_to_dok__(self, mat, node_num, plength=None):
+        """Convert to dok."""
+        if isinstance(mat, sparse.spmatrix):
+            mat = sparse.coo_matrix(mat)
+            dok = {
+                (i, j): Prob(d) for i, j, d in zip(mat.col, mat.row, mat.data)
+            }
+
+            nn = node_num if node_num is not None else mat.shape[0]
+            dim = 2
+        elif isinstance(mat, dict):
+            dok = {tuple(k): Prob(v) for k, v in mat.items()}
+            if node_num is None:
+                nn = np.max([dd for d in self._dok for dd in d]) + 1
+            else:
+                nn = node_num
+            # get the first key of the dict
+            if plength is None:
+                val = next(iter(dok.keys()))
+                dim = len(val)
+            else:
+                dim = plength
+        else:
+            dok = {tuple(i): Prob(d) for i, d in mat}
+            if node_num is None:
+                nn = np.max([dd for d in self._dok for dd in d]) + 1
+            else:
+                nn = node_num
+            dim = len(mat[0][0])
+
+        return dok, nn, dim
 
     def entropy(self):
         """Return the entropy of self.
@@ -339,16 +350,6 @@ class SparseMat():
             normalize=self._norm,
             plength=self._dim,
         )
-
-    def dot(self, other, indx):
-        if not isinstance(other, np.ndarray):
-            raise TypeError(
-                "other should be numpy.ndarray, not {}".format(type(other))
-            )
-        out = np.zeros_like(other, dtype=float)
-        for path, w in self._dok.items():
-            out[path[indx]] += float(w) * other[path[1 + indx]]
-        return out / self._norm.p
 
     def get_egonet(self, inode, axis=None):
         r"""Extract ego-network of a node.
@@ -561,29 +562,21 @@ class SparseMat():
         self.__p_thr.append(set())
         return self._nn - 1
 
-    def merge_colrow_bak(self, index_from, index_to):
-        """Merge two indexes in each dimension.
-        Merge locally.
-        """
-        if index_from == index_to:
-            return
-
-        for path in self.__p_thr[index_from]:
-            new_path = tuple(
-                [p if p != index_from else index_to for p in path]
-            )
-
-            prob = self._dok.pop(path)
-            self._dok.setdefault(new_path, 0.0)
-            self._dok[new_path] += prob
-
-            self.__p_thr[index_to].add(new_path)
-
-        # forgot to compact indices
-        self._nn -= 1
-
     def merge_colrow(self, index_from, index_to):
-        """Merge two indexes in each dimension."""
+        """Merge two indexes in each dimension.
+
+        Parameters
+        ----------
+        index_from : int
+            index to merge (will be removed)
+        index_to : int
+            index to merge.
+
+        Returns
+        -------
+        new_matrix : SparseMat
+            new matrix with `index_to` and `index_from` merged.
+        """
         if index_from == index_to:
             return self.copy()
 
