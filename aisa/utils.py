@@ -638,7 +638,7 @@ class SparseMat():
         )
 
     def __update_all_paths(self):
-        """ For each node, all paths that go through it."""
+        """For each node, all paths that go through it."""
         self.__p_thr = [set() for _ in range(self._nn)]
         for path in self._dok.keys():
             for i in path:
@@ -649,7 +649,8 @@ class SparseMat():
                     raise
 
     def __or__(self, other):
-        """ Return a SparseMat with entries from both self and other.
+        """Return a SparseMat with entries from both self and other.
+
         Local entries will be overwritten by other's.
         """
         new = self.copy()
@@ -658,16 +659,19 @@ class SparseMat():
         return new
 
     def __iter__(self):
+        """Iterate over paths and values."""
         for k, v in self._dok.items():
             yield k, v / self._norm
 
-    def __getitem__(self, item):
+    def __getitem__(self, path):
+        """Get an item."""
         try:
-            return self._dok[item] / self._norm
+            return self._dok[path] / self._norm
         except KeyError:
             return 0.0
 
     def __iadd__(self, other):
+        """Add."""
         ratio = self._norm / other._norm
         for p, d in other._dok.items():
             if p in self._dok:
@@ -679,13 +683,17 @@ class SparseMat():
         return self
 
     def __add__(self, other):
+        """Add."""
         new = self.copy()
         new += other
         return new
 
     def __isub__(self, other):
+        """Subtract.
+
+        Can provide negative values.
+        """
         ratio = self._norm / other._norm
-        """Can provide negative values."""
         for path, prob in other._dok.items():
             prob_norm = prob * ratio
             lprob = self._dok.get(path, None)
@@ -702,16 +710,18 @@ class SparseMat():
         return self
 
     def __sub__(self, other):
+        """Subtract."""
         new = self.copy()
         new -= other
         return new
 
     def __imul__(self, other):
+        """Multiply."""
         if self._nn != other._nn:
             raise ValueError(
-                    "Impossible to multiply matrices of different sizes"
-                    f" {self._nn} and {other._nn}"
-                )
+                "Impossible to multiply matrices of different sizes"
+                f" {self._nn} and {other._nn}"
+            )
         self._norm *= other._norm
         if self.size() < other.size():
             keys = [k for k in self._dok if k in other._dok]
@@ -724,11 +734,13 @@ class SparseMat():
         return self
 
     def __mul__(self, other):
+        """Multiply."""
         new = self.copy()
         new *= other
         return new
 
     def __eq__(self, other):
+        """Test equivalence."""
         for p, v in self._dok.items():
             if not np.isclose(
                 float(v / self._norm),
@@ -739,7 +751,10 @@ class SparseMat():
         return True
 
     def to_csr(self):
-        """Return a copy in scipy.sparse.csr_matrix"""
+        """Return a scipy sparse matrix.
+
+        It will be projected to the first two axis.
+        """
         smat = sparse.coo_matrix(
             (
                 [float(p) for p in self._dok.values()],
@@ -755,10 +770,10 @@ class SparseMat():
 
 
 class Partition():
-    """a bidirectional dictionary to store partitions. (for internal use)"""
+    """a bidirectional dictionary to store partitions. (for internal use)."""
 
     def __init__(self, partition: dict):
-        """get a dictionary node->class"""
+        """Build a dictionary node->class."""
         if partition is None:
             self.n2i = None
             self.i2n = None
@@ -768,15 +783,20 @@ class Partition():
             self.from_dictionary(partition)
 
     def node_names(self):
+        """Return the map of node names to node indexes."""
         yield from self.n2i
 
     def to_dictionary(self):
-        """Return a dictionary node->part (usign original names)"""
+        """Return a dictionary copy of self."""
         return {self.i2n[inode]: part for inode, part in self.items()}
 
     def from_dictionary(self, partition):
-        """Set partition from a node->class dictionary"""
+        """Set partition from a node->class dictionary.
 
+        Parameters
+        ----------
+        partition : dict
+        """
         # save names for later use
         # map names to index
         self.n2i = {n: i for i, n in enumerate(partition.keys())}
@@ -794,17 +814,16 @@ class Partition():
             self.parts[part].add(node)
 
     def to_coo(self):
-        """Return a NxM projection matrix"""
+        """Return a coo sparse matrix of the projector."""
         return partition2coo_sparse(self)
 
     @property
     def np(self):
-        """Return the number of partitions"""
+        """Retun the number of partitions."""
         return len(self.parts)
 
     def __setitem__(self, node, part):
         """Set i_nodes to partition."""
-
         old_part = self[node]
         if part == old_part:
             return
@@ -849,42 +868,23 @@ class Partition():
         self.parts.pop(part_from)
 
     def items(self):
+        """Iterate over node, partition tuples."""
         yield from self.partition.items()
 
     def __getitem__(self, node):
         return self.partition[node]
 
     def copy(self):
+        """Return a copy of self."""
         return Partition(self.to_dictionary())
 
     def keys(self):
+        """Iterate over node names."""
         yield from self.partition.keys()
 
     def values(self):
+        """Iterate over classes."""
         yield from self.partition.values()
-
-
-class Bipartition(dict):
-    """a bidirectional dictionary to store partitions."""
-
-    def __init__(self, *args, **kwargs):
-        """get a dictionary node->class"""
-        super(partition, self).__init__(*args, **kwargs)
-        self.part = {}
-        for key, value in self.items():
-            self.part.setdefault(value, []).append(key)
-
-    def __setitem__(self, key, value):
-        if key in self:
-            self.part[self[key]].remove(key)
-        super(partition, self).__setitem__(key, value)
-        self.part.setdefault(value, []).append(key)
-
-    def __delitem__(self, key):
-        self.part.setdefault(self[key], []).remove(key)
-        if self[key] in self.part and not self.part[self[key]]:
-            del self.part[self[key]]
-        super(partition, self).__delitem__(key)
 
 
 def entropy(array):
@@ -892,12 +892,13 @@ def entropy(array):
 
     Parameters
     ----------
-    array: float, SparseMat, np.array
+    array : float, SparseMat, np.array
+        An array or a float.
 
-    Return
-    ------
-    entropy: float
-    The entropy of the array
+    Returns
+    -------
+    entropy : float
+        The entropy of the array
     """
     # if array is a scalar
     if isinstance(array, (float, np.float32, np.float64)):
@@ -917,15 +918,36 @@ def entropy(array):
 
 
 def get_probabilities(
-        edges,
-        node_num,
-        symmetric=False,
-        return_transition=False,
-        compute_steady=False,
-        T=None
-        ):
-    """Compute p_ij and p_i at the steady state"""
+    edges,
+    node_num,
+    symmetric=False,
+    return_transition=False,
+    compute_steady=False,
+    T=None
+):
+    r"""Compute p_ij and p_i at the steady state.
 
+    Parameters
+    ----------
+    edges : list of tuples
+        list of edges/paths
+    node_num : int
+        number of nodes
+    symmetric : (optional) bool (Default value = False)
+        if True use the edges also backwards
+    return_transition: (optional) bool (Default value = False)
+        if True, returns also the transition matrix.
+    compute_steady : (optional) bool (Default value = False)
+    T : (optional) int or None (Default value = None)
+        temporal parameter.
+
+    Returns
+    -------
+    p_ij, p_i : sparse, array
+        Probabilities
+        If `return_transition` is True, returns a tuple with transition matrix,
+        a diagonal matrix with the inverse of steadystate entries, steadystate.
+    """
     graph = edgelist2csr_sparse(edges, node_num)
     if symmetric:
         graph += graph.transpose()
@@ -962,7 +984,20 @@ def get_probabilities(
 
 
 def edgelist2csr_sparse(edgelist, node_num):
-    """Edges as [(i, j, weight), …]"""
+    """Return a sparse matrix given a list of edges.
+
+    Parameters
+    ----------
+    edgelist : list of tuples of ints
+        the list of edges
+    node_num : int
+        number of nodes.
+
+    Returns
+    -------
+    adjacency_matrix : csr_sparse
+        the adjacency matrix as csr_sparse matrix
+    """
     graph = sparse.coo_matrix(
         (
             # data
@@ -976,7 +1011,7 @@ def edgelist2csr_sparse(edgelist, node_num):
 
 
 def partition2coo_sparse(part):
-    """from dict {(i, j, k, …): weight, …}"""
+    """Return a coo_sparse matrix given a dict {(i, j, k, …): weight, …}."""
     n_n = len(part)
     n_p = part.np
     try:
@@ -991,6 +1026,7 @@ def partition2coo_sparse(part):
 
 
 def kron(A, B):
+    """Kronecker."""
     dok = {}
     for n in range(A.shape[0]):
         for pA in A.paths_through_node(n, position=-1):
@@ -1000,31 +1036,24 @@ def kron(A, B):
     return SparseMat(dok)
 
 
-def zeros(node_num):
-    return SparseMat({}, node_num=0, normalize=False)
-
-
-def zeros_like(sparsemat):
-    return SparseMat(
-        {}, node_num=sparsemat.nn, normalize=1.0, plength=sparsemat._dim
-    )
-
-
 def range_dependent_graph(nnodes, alphas, gammas, symmetric=False):
-    r"""Range depentent graph.
+    """Range depentent graph.
 
-    :param nnodes: nodes of each class (len(nodes) = k)
-    :type nnodes: list of ints
-    :param alphas: matrix of parameter alpha (k x k)
-    :type alphas: matrix
-    :param gammas: matrix of parameter gamma (k x k)
-    :type gammas: matrix
-    :param symmetric: force out graph to be symmetric (Default value = False)
-    :type symmetric: bool, default=False
-    :returns: graph->     the graph
-    :rtype: nx.Graph or nx.DiGraph
+    Parameters
+    ----------
+    nnodes : list of ints
+        nodes of each class (len(nodes) = k)
+    alphas : matrix-like
+        matrix of parameter alpha (k x k)
+    gammas : matrix-like
+        matrix of parameter gamma (k x k)
+    symmetric : bool, default=False
+        force out graph to be symmetric (Default value = False)
 
-    
+    Returns
+    -------
+    graph : nx.Graph or nx.DiGraph
+        the graph
     """
     alphas = np.asarray(alphas)
     gammas = np.asarray(gammas)
@@ -1065,29 +1094,32 @@ def range_dependent_graph(nnodes, alphas, gammas, symmetric=False):
 
 def range_dependent_block(nnodes, alpha, gamma, symmetric=False):
     r"""Range depentent block.
-    
+
     The probability is given by:
-    
+
     \( p_{ij} = \alpha \gamma^{d_{ij}} \)
-    
+
     where
-    
+
     \( d_{ij} = \frac{d_\theta (i, j )}{2\pi} \sqrt{N_{c_i} N_{c_j}} \)
-    
+
     where \( d_\theta (j,i) \) is the shorter angular path.
 
-    :param nnodes: nodes of each class (len(nodes) = k)
-    :type nnodes: int or tuple of two ints
-    :param alpha: parameter alpha
-    :type alpha: float
-    :param gamma: parameter gamma
-    :type gamma: float
-    :param symmetric: force out graph to be symmetric (Default value = False)
-    :type symmetric: bool, default=False
-    :returns: graph->     matrix
-    :rtype: sparse matrix
+    Parameters
+    ----------
+    nnodes : int or tuple of two ints
+        nodes of each class (len(nodes) = k)
+    alpha : float
+        parameter alpha
+    gamma : float
+        parameter gamma
+    symmetric: bool, default=False
+        force out graph to be symmetric (Default value = False)
 
-    
+    Returns
+    -------
+    graph : sparse matrix
+        matrix
     """
     # random number genertor
     rng = np.random.default_rng()

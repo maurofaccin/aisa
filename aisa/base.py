@@ -23,13 +23,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # =============================================================================
 
+import itertools
 import logging
 import sys
-import itertools
 
-import numpy as np
 import networkx as nx
+import numpy as np
 from scipy import sparse
+
 from . import utils
 
 try:
@@ -47,15 +48,13 @@ SYMBOLS = "0123456789ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghjklmnopqrstuvwxyz"
 
 
 class PGraph():
-    """A graph with a partition.
-    """
+    """A graph with a partition."""
 
     def __init__(self, graph, init_part=None, compute_steady=True, T=None):
         """Initialize from `networkx` graphs.
 
         Parameters
-        ---
-
+        ----------
         graph: nx.[Di]Graph()
             The graph
 
@@ -69,7 +68,6 @@ class PGraph():
         T: int
             time scale parameter value. (Default: 1)
         """
-
         if isinstance(graph, nx.DiGraph):
             self._isdirected = True
         elif isinstance(graph, nx.Graph):
@@ -112,11 +110,9 @@ class PGraph():
         """Set/Change the graph partition.
 
         Parameters
-        ---
-
+        ----------
         partition: dict
             The partition to be set. A dict with nodes as keys and classes as values
-
         """
         # set up partition
         if partition is not None:
@@ -130,12 +126,12 @@ class PGraph():
 
     @property
     def np(self):
-        """Number of partitions"""
+        """Return the number of partitions."""
         return self._np
 
     @property
     def nn(self):
-        """Number of nodes"""
+        """Return the number of nodes."""
         return self._nn
 
     def _move_probability(self, inode, part_probs=None, part=None):
@@ -145,9 +141,9 @@ class PGraph():
         :part_probs: optional prob distribution to compute from
         :part: optional partition to move the node to
         """
-
         if part_probs is None:
-            part_probs = self._ppij.copy()
+            part_probs = self._ppij
+
         n_ego_out = self._pij.get_egonet(inode, axis=0).project(self._part)
         n_ego_in = self._pij.get_egonet(inode, axis=1).project(self._part)
 
@@ -180,9 +176,9 @@ class PGraph():
 
     def _get_random_move(self, inode=None, kmax=None, kmin=None, **kwargs):
         """Select one node and a partition to move to.
+
         Returns the probability of the move and the delta energy.
         """
-
         rdm = np.random.default_rng()
 
         # get a random node
@@ -313,6 +309,7 @@ class PGraph():
         return best["parts"]
 
     def __try_merge__(self, p1, p2, **kwargs):
+        """Return autoinformation change for a merge."""
         p12 = self._ppij.get_submat([p1, p2])
         H2pre = utils.entropy(p12)
 
@@ -358,8 +355,7 @@ class PGraph():
         Merge partition `part1` and `part2` and update pgraph accordingly.
 
         Parameters
-        ---
-
+        ----------
         part1: int
             integer index of the first partition to be merged
 
@@ -389,24 +385,22 @@ class PGraph():
         self._tryed_moves = {}
 
     def nodes(self):
-        """Iterator over nodes names.
+        """Iterate over nodes names.
 
         Yields
-        ---
-
+        ------
         nodes
         """
         yield from self._part.node_names()
 
     def __repr__(self):
+        """Return representation."""
         return "Graph with {} nodes {} edges and {} partitions".format(
             self._nn, len(self._pij._dok), self._np
         )
 
     def print_partition(self):
-        """
-        Try to print the partition to screen using ASCII chars.
-        """
+        """Try to print the partition to screen using ASCII chars."""
         try:
             strng = "".join([SYMBOLS[self._part[i]] for i in range(self._nn)])
         except IndexError:
@@ -420,33 +414,30 @@ class PGraph():
         """Return the partition.
 
         Returns
-        ---
-
+        -------
         partition: dict
             a dictionary with nodes as keys and classes as values.
         """
-
         return self._part.to_dictionary()
 
     def __delta__(
         self, h1old, h2old, h1new, h2new, beta=0.0, action="move"
     ):
+        """Return delta autoinformation."""
         return (2 - beta) * (h1new - h1old) - h2new + h2old
 
     def autoinformation(self, beta):
         """Return the autoinformation value for the current partion.
 
         Parameters
-        ---
-
+        ----------
         beta: float
             model selection parameter. (Default: 0)
 
         Returns
-        ---
-
+        -------
         autoinformation: float
-            the autoinformation relative to the graph, partition and \( \\beta \)
+            the autoinformation
         """
         h_1 = utils.entropy(self._ppi)
         h_2 = utils.entropy(self._ppij)
@@ -455,7 +446,6 @@ class PGraph():
 
 def neigneig_full(pgraph, kind='projected'):
     """Return the set of neighbours of neighbours of node."""
-
     if kind == "projected":
         s_mat = pgraph._ppij
     elif kind == "full":
@@ -479,11 +469,11 @@ def neigneig_full(pgraph, kind='projected'):
 
 def entrogram(graph, partition, depth=3):
     """Compute the entrogram for the graph and the given partition.
+
     A random walk is assumed as Markovian process on the original network.
 
     Parameters
-    ---
-
+    ----------
     graph: nx.Graph or nx.DiGraph
 
     partition: dict
@@ -493,12 +483,10 @@ def entrogram(graph, partition, depth=3):
         The number of bars the final entrogram should have. (Default: 3)
 
     Returns
-    ---
-
+    -------
     entrogram: tuple
-        - \( H_{KS} \)
+        - ( H_{KS} )
         - list of entrogram entries
-
     """
     # node to index map
     part = utils.Partition(partition)
@@ -541,58 +529,61 @@ def entrogram(graph, partition, depth=3):
 
 
 def best_partition(
-            graph,
-            T=None,
-            beta=0.0,
-            init_part=None,
-            kmin=None,
-            kmax=None,
-            invtemp=1e6,
-            compute_steady=True,
-            tsteps=10000,
-            ):
+    graph,
+    T=None,
+    beta=0.0,
+    init_part=None,
+    kmin=None,
+    kmax=None,
+    invtemp=1e6,
+    compute_steady=True,
+    tsteps=10000,
+):
     """Find the best partition for `graph`.
 
     Parameters
     ----------
-
-    graph: nx.Graph or nx.DiGraph
+    graph : nx.Graph or nx.DiGraph
         The graph to be aggregated (a random walk is considered as dynamical system)
 
-    init_part: dict
+    init_part : dict, optional
         initial partition to start the optimization. (Default: N singletons)
 
-    T: int
-        time scale parameter value. (Default: 1)
+    T : int, default=None
+        time scale parameter value. Default to None, meaning it will in fact use T=1
 
-    beta: float
-        model selection parameter. (Default: 0)
+    beta : float, default=0.0
+        model selection parameter.
 
-    kmin: int
+    kmin : int
         minimum number of partition to be accepted
 
-    kmax: int
+    kmax : int
         maximum number of partition to be accepted
 
-    invtemp: float
+    invtemp : float, default=1e6
         the inverse of the pseudo-temperature for the simulated annealing process
 
-    compute_steady: bool
+    compute_steady : bool
         If steady state need to be computed. (Default: True)
         If False, the steady state will be the marginal.
 
-    tsteps: int
+    tsteps : int
         Maximum number of steps in the optimization process. (Default: 10k)
 
 
     Returns
-    ------
-
-    partition: dict
+    -------
+    partition : dict
         Dictionary with nodes as keys and partitions as values.
+    autoinformation: float
+        Value of the autoinformation
 
+    Raises
+    ------
+    ValueError :
+        init_part should be None or dict
     """
-
     if kmax is None:
         kmax = graph.number_of_nodes()
 
@@ -619,6 +610,8 @@ def best_partition(
 
     # start with hierarchical merging
     merge_pgraph(pgraph, kmin=kmin, kmax=kmax, beta=beta)
+    if pgraph.np == pgraph.nn:
+        return pgraph.partition(), pgraph.autoinformation(beta)
     # optimize
     best = optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=beta)
 
@@ -630,32 +623,34 @@ def best_partition(
     log.info("{} -- {} ".format(pgraph._np, pgraph.print_partition()))
     log.info("   -- {}".format(autoinformation))
 
-    return results
+    return results, autoinformation
 
 
 def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
-    """
-    Optimize the partition enbedded into `pgraph`.
+    """Optimize the partition enbedded into `pgraph`.
 
     Parameters
-    ---
-
-    pgraph: PGraph
+    ----------
+    pgraph : PGraph
         A graph plus partition.
 
-    kmin: int
+    kmin : int
         minimum number of partition to be accepted
 
-    kmax: int
+    kmax : int
         maximum number of partition to be accepted
 
-    invtemp: float
+    invtemp : float
         the inverse of the pseudo-temperature for the simulated annealing process
 
-    tsteps: int
+    tsteps : int
         Maximum number of steps in the optimization process. (Default: 10k)
-    """
 
+    Returns
+    -------
+    best_partition : dict
+        best partition after otpimization (pgraph will be updated accordingly)
+    """
     rdm = np.random.default_rng()
 
     bestp = pgraph.partition()
@@ -717,16 +712,16 @@ def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
                 moves[1] += 1
                 moves[3] = 0
                 log.debug("accepted move {} < {}".format(rand, threshold))
+            else:
+                log.debug("rejected move")
+                moves[3] += 1
+
             try:
                 tsrange.set_description(
                     "{} [{}]".format(moves[2], pgraph.np)
                 )
             except AttributeError:
                 pass
-
-            else:
-                log.debug("rejected move")
-                moves[3] += 1
 
         if cumul > 0:
             log.debug("BEST move +++ {} +++".format(cumul))
@@ -744,42 +739,36 @@ def optimize(pgraph, kmin, kmax, invtemp, tsteps, beta=0.0):
 def merge_pgraph(pgraph, beta=0.0, kmin=1, kmax=np.inf):
     """Hierarchical merging of classes.
 
-    Parameters
-    ---
+    `pgraph` will be updated to the best encounteded partition.
 
+    Parameters
+    ----------
     pgraph: PGraph
         A graph plus partition.
-
     beta: float
         Model selection parameter (Default: 0.0)
-
     kmin: int
         minimum number of partition to be accepted
-
     kmax: int
         maximum number of partition to be accepted
-
-
-    `pgraph` will be updated to the best encounteded partition.
     """
-
     if kmin > pgraph.np:
         return None
 
     elif pgraph.np <= kmax:
-        best_part = (pgraph.autoinformation(beta), pgraph.partition())
+        best_part = (pgraph.autoinformation(beta), pgraph.partition(), pgraph.np)
 
     else:
-        best_part = (-np.inf, None)
+        best_part = (-np.inf, None, None)
 
     while pgraph.np > kmin:
-        print(pgraph.np, ' ', end='\r')
+        print(f"Checking {pgraph.np}; best {best_part[2]}     ", end='\r', file=sys.stderr)
         best = pgraph._get_best_merge(beta=beta)
         if best is None:
             break
         pgraph.merge_partitions(*best)
         val = pgraph.autoinformation(beta)
         if val > best_part[0] and pgraph.np <= kmax:
-            best_part = (val, pgraph.partition())
+            best_part = (val, pgraph.partition(), pgraph.np)
 
     pgraph.set_partition(best_part[1])
