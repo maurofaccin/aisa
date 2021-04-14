@@ -32,12 +32,12 @@ np.seterr(all="raise")
 
 
 class Prob():
-    """A class to store the probability p and the plogp value."""
+    r"""A class to store the probability \(p\) and the \(p\log p\) value."""
 
     __slots__ = ["__p", "__plogp"]
 
     def __init__(self, value):
-        """Given a float or a Prob, store p and plogp.
+        r"""Given a float or a Prob, store \(p\) and the \(p\log p\).
 
         Parameters
         ----------
@@ -63,12 +63,12 @@ class Prob():
 
     @property
     def plogp(self):
-        """Return plog(p).
+        r"""Return \(p \log(p)\).
 
         Returns
         -------
         plogp : float
-            return the values of plog(p)
+            return the values of \(p \log(p)\)
         """
         return self.__plogp
 
@@ -1037,7 +1037,17 @@ def kron(A, B):
 
 
 def range_dependent_graph(nnodes, alphas, gammas, symmetric=False):
-    """Range depentent graph.
+    r"""Range depentent graph.
+
+    The probability of each block is given by:
+
+    \( p_{ij} = \alpha \gamma^{d_{ij}} \)
+
+    where
+
+    \( d_{ij} = \frac{d_\theta (i, j )}{2\pi} \sqrt{N_{c_i} N_{c_j}} \)
+
+    where \( d_\theta (j,i) \) is the shorter angular path.
 
     Parameters
     ----------
