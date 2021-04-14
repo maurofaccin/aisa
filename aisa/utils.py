@@ -27,7 +27,7 @@
 import numpy as np
 from scipy import sparse
 
-__all__ = ['Prob', "SparseMat", "entropy"]
+__all__ = ['Prob', "SparseMat", "entropy", "range_dependent_graph"]
 np.seterr(all="raise")
 
 
@@ -1008,3 +1008,112 @@ def zeros_like(sparsemat):
     return SparseMat(
         {}, node_num=sparsemat.nn, normalize=1.0, plength=sparsemat._dim
     )
+
+
+def range_dependent_graph(nnodes, alphas, gammas, symmetric=False):
+    r"""Range depentent graph.
+
+    :param nnodes: nodes of each class (len(nodes) = k)
+    :type nnodes: list of ints
+    :param alphas: matrix of parameter alpha (k x k)
+    :type alphas: matrix
+    :param gammas: matrix of parameter gamma (k x k)
+    :type gammas: matrix
+    :param symmetric: force out graph to be symmetric (Default value = False)
+    :type symmetric: bool, default=False
+    :returns: graph->     the graph
+    :rtype: nx.Graph or nx.DiGraph
+
+    
+    """
+    alphas = np.asarray(alphas)
+    gammas = np.asarray(gammas)
+
+    blocks = [[None for _ in nnodes] for _ in nnodes]
+
+    for inn, nn in enumerate(nnodes):
+        blocks[inn][inn] = range_dependent_block(
+            nn,
+            alphas[inn, inn],
+            gammas[inn, inn],
+            symmetric=symmetric
+        )
+
+    for i, j in zip(*np.triu_indices(len(nnodes), k=1)):
+        block = range_dependent_block(
+            (nnodes[i], nnodes[j]),
+            alphas[i, j],
+            gammas[i, j],
+            symmetric=False
+        )
+
+        blocks[i][j] = block
+
+        if symmetric:
+            block = block.T
+        else:
+            block = range_dependent_block(
+                (nnodes[j], nnodes[i]),
+                alphas[i, j],
+                gammas[i, j],
+                symmetric=False
+            )
+        blocks[j][i] = block
+
+    return sparse.bmat(blocks, format='csr')
+
+
+def range_dependent_block(nnodes, alpha, gamma, symmetric=False):
+    r"""Range depentent block.
+    
+    The probability is given by:
+    
+    \( p_{ij} = \alpha \gamma^{d_{ij}} \)
+    
+    where
+    
+    \( d_{ij} = \frac{d_\theta (i, j )}{2\pi} \sqrt{N_{c_i} N_{c_j}} \)
+    
+    where \( d_\theta (j,i) \) is the shorter angular path.
+
+    :param nnodes: nodes of each class (len(nodes) = k)
+    :type nnodes: int or tuple of two ints
+    :param alpha: parameter alpha
+    :type alpha: float
+    :param gamma: parameter gamma
+    :type gamma: float
+    :param symmetric: force out graph to be symmetric (Default value = False)
+    :type symmetric: bool, default=False
+    :returns: graph->     matrix
+    :rtype: sparse matrix
+
+    
+    """
+    # random number genertor
+    rng = np.random.default_rng()
+
+    # get the adjacency matrix
+    if isinstance(nnodes, (int, np.integer)):
+        nnodes = (nnodes, nnodes)
+    assert len(nnodes) == 2, "For now we expect two dimensions!"
+    adj = sparse.lil_matrix(nnodes, dtype=np.int8)
+
+    ind0, ind1 = np.indices(nnodes, dtype=np.float32)
+
+    ind0 = ind0 / nnodes[0]
+    ind1 = ind1 / nnodes[1]
+
+    dtheta = np.abs(ind0 - ind1)
+    dtheta = np.minimum(dtheta, np.abs(dtheta - 1))
+    dij = dtheta * np.sqrt(nnodes[0] * nnodes[1])
+
+    pij = alpha * gamma ** dij
+    np.fill_diagonal(pij, 0.0)
+
+    adj = (rng.random(size=nnodes) <= pij).astype(int)
+    adj = sparse.csr_matrix(adj)
+
+    if nnodes[0] != nnodes[1] or not symmetric:
+        return adj
+
+    return sparse.tril(adj) + sparse.tril(adj, -1).T
