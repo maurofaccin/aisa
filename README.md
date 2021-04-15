@@ -44,9 +44,12 @@ $ pip uninstall aisa
 
 ## Usage
 
-Read the [online documentation](https://maurofaccin.github.io/aisa) that describes all classes and functions of the modules.
-A simple example is provided in form of an `ipython` notebook in [github](https://github.com/maurofaccin/aisa/blob/master/examples/Karate_Club.ipynb)
-or in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/master/examples/Karate_Club.ipynb)
+Read the [online documentation](https://maurofaccin.github.io/aisa) that describes all classes and functions of the module.
+
+Some simple notebook examples on module usage are provided in the `examples` subfolder:
+
+- a simple example of computing and drawing the `entrogram` and detecting the partition that maximize the auto-information in a well know small social network, see in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/master/examples/Karate_Club.ipynb)
+- an example on how to build a *range dependent network* and find the partition that maximize auto-nformation, see in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/master/examples/Range_Dependent_Network.ipynb)
 
 ## License
 
