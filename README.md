@@ -28,11 +28,19 @@ The following modules are required to `aisa` to work properly:
 
 ### Install
 
-Download the code [here](https://github.com/maurofaccin/aisa/archive/master.zip) and unzip locally or clone the `git` repository from [Github](https://github.com/maurofaccin/aisa).
+#### Pip
 
-On the terminl run:
+`AISA` can be installed directly from PyPI using `pip` with the following:
 ```
-pip install --user path/to/module
+pip install aisa
+```
+
+#### Manually
+
+Alternatively one can download the code [here](https://github.com/maurofaccin/aisa/archive/main.zip) and unzip locally or clone the `git` repository from [Github](https://github.com/maurofaccin/aisa).
+From inside the module folder you can run:
+```
+pip install aisa
 ```
 
 ### Uninstall
@@ -48,12 +56,12 @@ Read the [online documentation](https://maurofaccin.github.io/aisa) that describ
 
 Some simple notebook examples on module usage are provided in the `examples` subfolder:
 
-- a simple example of computing and drawing the `entrogram` and detecting the partition that maximize the auto-information in a well know small social network, see in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/master/examples/Karate_Club.ipynb)
-- an example on how to build a *range dependent network* and find the partition that maximize auto-nformation, see in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/master/examples/Range_Dependent_Network.ipynb)
+- a simple example of computing and drawing the `entrogram` and detecting the partition that maximize the auto-information in a well know small social network, see in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/main/examples/Karate_Club.ipynb)
+- an example on how to build a *range dependent network* and find the partition that maximize auto-nformation, see in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/main/examples/Range_Dependent_Network.ipynb)
 
 ## License
 
-Copyright: Mauro Faccin (2020)
+Copyright: Mauro Faccin (2021)
 
 AISA is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
