@@ -49,9 +49,14 @@ In case you use this, please cite the following paper:</p>
 <li><code>tqdm</code> (optional)</li>
 </ul>
 <h3 id="install">Install</h3>
-<p>Download the code <a href="https://github.com/maurofaccin/aisa/archive/master.zip">here</a> and unzip locally or clone the <code>git</code> repository from <a href="https://github.com/maurofaccin/aisa">Github</a>.</p>
-<p>On the terminl run:</p>
-<pre><code>pip install --user path/to/module
+<h4 id="pip">Pip</h4>
+<p><code>AISA</code> can be installed directly from PyPI using <code>pip</code> with the following:</p>
+<pre><code>pip install aisa
+</code></pre>
+<h4 id="manually">Manually</h4>
+<p>Alternatively one can download the code <a href="https://github.com/maurofaccin/aisa/archive/main.zip">here</a> and unzip locally or clone the <code>git</code> repository from <a href="https://github.com/maurofaccin/aisa">Github</a>.
+From inside the module folder you can run:</p>
+<pre><code>pip install aisa
 </code></pre>
 <h3 id="uninstall">Uninstall</h3>
 <p>On the terminl run:</p>
@@ -61,11 +66,11 @@ In case you use this, please cite the following paper:</p>
 <p>Read the <a href="https://maurofaccin.github.io/aisa">online documentation</a> that describes all classes and functions of the module.</p>
 <p>Some simple notebook examples on module usage are provided in the <code>examples</code> subfolder:</p>
 <ul>
-<li>a simple example of computing and drawing the <code><a title="aisa.entrogram" href="#aisa.entrogram">entrogram()</a></code> and detecting the partition that maximize the auto-information in a well know small social network, see in <a href="https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/master/examples/Karate_Club.ipynb">nbviewer</a></li>
-<li>an example on how to build a <em>range dependent network</em> and find the partition that maximize auto-nformation, see in <a href="https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/master/examples/Range_Dependent_Network.ipynb">nbviewer</a></li>
+<li>a simple example of computing and drawing the <code><a title="aisa.entrogram" href="#aisa.entrogram">entrogram()</a></code> and detecting the partition that maximize the auto-information in a well know small social network, see in <a href="https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/main/examples/Karate_Club.ipynb">nbviewer</a></li>
+<li>an example on how to build a <em>range dependent network</em> and find the partition that maximize auto-nformation, see in <a href="https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/main/examples/Range_Dependent_Network.ipynb">nbviewer</a></li>
 </ul>
 <h2 id="license">License</h2>
-<p>Copyright: Mauro Faccin (2020)</p>
+<p>Copyright: Mauro Faccin (2021)</p>
 <p>AISA is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -321,7 +326,11 @@ If False, the steady state will be the marginal.</dd>
 <li><a href="#auto-information-state-aggregation">Auto-Information State Aggregation</a></li>
 <li><a href="#getting-the-code">Getting the code</a><ul>
 <li><a href="#requirements">Requirements</a></li>
-<li><a href="#install">Install</a></li>
+<li><a href="#install">Install</a><ul>
+<li><a href="#pip">Pip</a></li>
+<li><a href="#manually">Manually</a></li>
+</ul>
+</li>
 <li><a href="#uninstall">Uninstall</a></li>
 </ul>
 </li>
