@@ -1,5 +1,5 @@
 
-all: docs/index.html build
+all: docs/index.html build deploy
 
 
 build: dist/aisa-1.0.0-py3-none-any.whl dist/aisa-1.0.0.tar.gz
@@ -21,6 +21,10 @@ dist/aisa-1.0.0-py3-none-any.whl:
 
 dist/aisa-1.0.0.tar.gz:
 	python -m build --sdist -o dist --no-isolation
+
+
+deploy:
+	twine upload dist/*
 
 
 .PHONY: all build

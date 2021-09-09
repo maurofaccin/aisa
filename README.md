@@ -5,7 +5,10 @@ If you use this code, please cite the following paper:
 
 > **State aggregations in Markov chains and block models of networks**, <br>
 > *Faccin, Schaub and Delvenne*,
+> [Phys. Rev. Lett., 127(7) p.078301 (2021)](https://doi.org/10.1103/PhysRevLett.127.078301)<br>
 > [ArXiv 2005.00337](https://arxiv.org/abs/2005.00337)
+
+(data used in the paper to analyse the ocean surface currents can be found in the Github repo [`ocean_surface_dataset`](https://github.com/maurofaccin/ocean_surface_dataset))
 
 The module provides also a function to compute the Entrogram of a network with a suitable partition.
 The Entrogram provides a concise, visual characterization of the Markovianity of the dynamics projected to the partition space.
