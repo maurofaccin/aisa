@@ -8,7 +8,7 @@ If you use this code, please cite the following paper:
 > [Phys. Rev. Lett., 127(7) p.078301 (2021)](https://doi.org/10.1103/PhysRevLett.127.078301)<br>
 > [ArXiv 2005.00337](https://arxiv.org/abs/2005.00337)
 
-(data used in the paper to analyse the ocean surface currents can be found in the Github repo [`ocean_surface_dataset`](https://github.com/maurofaccin/ocean_surface_dataset))
+(data used in the paper to analyse the ocean surface currents can be found in the GitHub repo [`ocean_surface_dataset`](https://github.com/maurofaccin/ocean_surface_dataset))
 
 The module provides also a function to compute the Entrogram of a network with a suitable partition.
 The Entrogram provides a concise, visual characterization of the Markovianity of the dynamics projected to the partition space.
@@ -23,7 +23,7 @@ In case you use this, please cite the following paper:
 
 ### Requirements
 
-The following modules are required to `aisa` to work properly:
+`aisa` requires the following modules to work properly:
 
 - `numpy` and `scipy`
 - `networkx`
@@ -40,7 +40,7 @@ pip install aisa
 
 #### Manually
 
-Alternatively one can download the code [here](https://github.com/maurofaccin/aisa/archive/main.zip) and unzip locally or clone the `git` repository from [Github](https://github.com/maurofaccin/aisa).
+Alternatively one can download the code [here](https://github.com/maurofaccin/aisa/archive/main.zip) and unzip locally or clone the `git` repository from [GitHub](https://github.com/maurofaccin/aisa).
 From inside the module folder you can run:
 ```
 pip install aisa
@@ -48,7 +48,7 @@ pip install aisa
 
 ### Uninstall
 
-On the terminl run:
+On the terminal run:
 ```
 $ pip uninstall aisa
 ```
@@ -57,9 +57,9 @@ $ pip uninstall aisa
 
 Read the [online documentation](https://maurofaccin.github.io/aisa) that describes all classes and functions of the module.
 
-Some simple notebook examples on module usage are provided in the `examples` subfolder:
+Some simple notebook examples on the usage of this module are provided in the `examples` subfolder:
 
-- a simple example of computing and drawing the `entrogram` and detecting the partition that maximize the auto-information in a well know small social network, see in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/main/examples/Karate_Club.ipynb)
+- a simple example of computing and drawing the `entrogram` and detecting the partition that maximize the auto-information in a well-know small social network, see in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/main/examples/Karate_Club.ipynb)
 - an example on how to build a *range dependent network* and find the partition that maximize auto-nformation, see in [nbviewer](https://nbviewer.jupyter.org/github/maurofaccin/aisa/blob/main/examples/Range_Dependent_Network.ipynb)
 
 ## License
